@@ -33,11 +33,10 @@
 
   <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.23.2/babel.min.js"></script>
-  <script type="text/babel" data-presets="react">
+  <script>
 const { useState, useEffect, useMemo, useCallback } = React;
 
-
+const _jsxFileName = ""; function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }
 // ============================================================
 // SEED DATA
 // ============================================================
@@ -222,8 +221,8 @@ const fmtS = n => n>=1000000?`$${(n/1e6).toFixed(1)}M`:n>=1000?`$${(n/1000).toFi
 const getCat = (id,cats) => cats.find(c=>c.id===id)||{name:"Otros",icon:"📦",color:"#94a3b8"};
 
 function useStorage(key, init) {
-  const [v,setV] = useState(()=>{ try{const s=localStorage.getItem(key);return s?JSON.parse(s):init;}catch{return init;} });
-  useEffect(()=>{ try{localStorage.setItem(key,JSON.stringify(v));}catch{} },[key,v]);
+  const [v,setV] = useState(()=>{ try{const s=localStorage.getItem(key);return s?JSON.parse(s):init;}catch (e2){return init;} });
+  useEffect(()=>{ try{localStorage.setItem(key,JSON.stringify(v));}catch (e3){} },[key,v]);
   return [v,setV];
 }
 
@@ -435,39 +434,39 @@ const injectStyles = () => {
 // ============================================================
 function Toast({msg,onDone}){
   useEffect(()=>{const t=setTimeout(onDone,2600);return()=>clearTimeout(t);},[]);
-  return <div className="toast">{msg}</div>;
+  return React.createElement('div', { className: "toast", __self: this, __source: {fileName: _jsxFileName, lineNumber: 399}}, msg);
 }
-function PBadge({p}){ return <span className={`bdg ${p}`}>{p}</span>; }
+function PBadge({p}){ return React.createElement('span', { className: `bdg ${p}`, __self: this, __source: {fileName: _jsxFileName, lineNumber: 401}}, p); }
 function Prog({pct,color,thick}){
   const bg = pct>=100?"var(--rd)":pct>=80?"var(--yw)":(color||"var(--ac)");
-  return <div className={`pw${thick?" tk":""}`}><div className="pb2" style={{width:`${Math.min(pct,100)}%`,background:bg}}/></div>;
+  return React.createElement('div', { className: `pw${thick?" tk":""}`, __self: this, __source: {fileName: _jsxFileName, lineNumber: 404}}, React.createElement('div', { className: "pb2", style: {width:`${Math.min(pct,100)}%`,background:bg}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 404}}));
 }
 function MonthBar({months,sel,onChange}){
   return (
-    <div className="mbar">
-      <div className={`mc${sel==="all"?" on":""}`} onClick={()=>onChange("all")}>Todo</div>
-      {months.map(m=>(
-        <div key={m} className={`mc${sel===m?" on":""}`} onClick={()=>onChange(m)}>{fmtMonth(m)}</div>
-      ))}
-    </div>
+    React.createElement('div', { className: "mbar", __self: this, __source: {fileName: _jsxFileName, lineNumber: 408}}
+      , React.createElement('div', { className: `mc${sel==="all"?" on":""}`, onClick: ()=>onChange("all"), __self: this, __source: {fileName: _jsxFileName, lineNumber: 409}}, "Todo")
+      , months.map(m=>(
+        React.createElement('div', { key: m, className: `mc${sel===m?" on":""}`, onClick: ()=>onChange(m), __self: this, __source: {fileName: _jsxFileName, lineNumber: 411}}, fmtMonth(m))
+      ))
+    )
   );
 }
 function TrendChart({data,ck="gasto"}){
   const max   = Math.max(...data.map(d=>d[ck]||0),1);
   const color = ck==="gasto"?"var(--rd)":ck==="ahorro"?"var(--gn)":ck==="diego"?"#7aa3ff":"#f472b6";
   return (
-    <div className="tbar">
-      {data.map((d,i)=>{
+    React.createElement('div', { className: "tbar", __self: this, __source: {fileName: _jsxFileName, lineNumber: 420}}
+      , data.map((d,i)=>{
         const v=d[ck]||0, pct=(v/max)*100;
         return (
-          <div key={i} className="tc">
-            <div style={{fontSize:9,color:"var(--mt2)",fontWeight:700,marginBottom:2}}>{fmtS(v)}</div>
-            <div className="tb" style={{height:`${Math.max(pct,3)}%`,background:color,opacity:i===data.length-1?1:.6}}/>
-            <div className="tl">{d.label}</div>
-          </div>
+          React.createElement('div', { key: i, className: "tc", __self: this, __source: {fileName: _jsxFileName, lineNumber: 424}}
+            , React.createElement('div', { style: {fontSize:9,color:"var(--mt2)",fontWeight:700,marginBottom:2}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 425}}, fmtS(v))
+            , React.createElement('div', { className: "tb", style: {height:`${Math.max(pct,3)}%`,background:color,opacity:i===data.length-1?1:.6}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 426}})
+            , React.createElement('div', { className: "tl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 427}}, d.label)
+          )
         );
-      })}
-    </div>
+      })
+    )
   );
 }
 
@@ -475,75 +474,75 @@ function TrendChart({data,ck="gasto"}){
 // ENTRY SHEET (add / edit)
 // ============================================================
 function EntrySheet({entry,onClose,onSave,cats}){
-  const isEdit = !!entry?.id;
+  const isEdit = !!_optionalChain([entry, 'optionalAccess', _2 => _2.id]);
   const defDate = todayStr();                          // FIX: was new Date().toISOString() — UTC drift
-  const [type,  setType]   = useState(entry?.type||"gasto");
-  const [person,setPerson] = useState(entry?.person||"Diego");
-  const [amount,setAmount] = useState(entry?.amount?String(entry.amount):"");
-  const [catId, setCatId]  = useState(entry?.category_id||"");
-  const [note,  setNote]   = useState(entry?.note||"");
-  const [date,  setDate]   = useState(entry?.entry_date||defDate);
+  const [type,  setType]   = useState(_optionalChain([entry, 'optionalAccess', _3 => _3.type])||"gasto");
+  const [person,setPerson] = useState(_optionalChain([entry, 'optionalAccess', _4 => _4.person])||"Diego");
+  const [amount,setAmount] = useState(_optionalChain([entry, 'optionalAccess', _5 => _5.amount])?String(entry.amount):"");
+  const [catId, setCatId]  = useState(_optionalChain([entry, 'optionalAccess', _6 => _6.category_id])||"");
+  const [note,  setNote]   = useState(_optionalChain([entry, 'optionalAccess', _7 => _7.note])||"");
+  const [date,  setDate]   = useState(_optionalChain([entry, 'optionalAccess', _8 => _8.entry_date])||defDate);
 
   const save = () => {
     const n=parseFloat(amount);
     if(!n||n<=0||!catId) return;
-    onSave({...(entry||{}),id:entry?.id||`e${Date.now()}`,type,person,amount:n,category_id:catId,note,entry_date:date});
+    onSave({...(entry||{}),id:_optionalChain([entry, 'optionalAccess', _9 => _9.id])||`e${Date.now()}`,type,person,amount:n,category_id:catId,note,entry_date:date});
     onClose();
   };
   return (
-    <div className="ovl" onClick={e=>e.target===e.currentTarget&&onClose()}>
-      <div className="sht">
-        <div className="hdl"/>
-        <div className="sttl">{isEdit?"Editar":"Nuevo"} Movimiento</div>
-        <div className="fg">
-          <div className="tgl">
-            <button className={`tgb${type==="gasto"?" g":""}`} onClick={()=>setType("gasto")}>💸 Gasto</button>
-            <button className={`tgb${type==="ahorro"?" a":""}`} onClick={()=>setType("ahorro")}>💰 Ahorro</button>
-          </div>
-        </div>
-        <div className="fg" style={{textAlign:"center"}}>
-          <label className="fl">Valor</label>
-          <div style={{position:"relative"}}>
-            <span style={{position:"absolute",left:"calc(50% - 55px)",top:16,fontSize:19,color:"var(--mt)"}}>$</span>
-            <input className="fam" type="number" placeholder="0" value={amount} onChange={e=>setAmount(e.target.value)} inputMode="decimal"/>
-          </div>
-        </div>
-        <div className="fg">
-          <label className="fl">Persona</label>
-          <div className="pg">
-            {["Diego","Kelly","Compartido"].map(p=>(
-              <button key={p} className={`pb${person===p?" on":""}`} onClick={()=>setPerson(p)}>{p}</button>
-            ))}
-          </div>
-          {person==="Compartido"&&(
-            <div style={{fontSize:11,color:"var(--mt)",marginTop:6,padding:"6px 10px",background:"rgba(124,92,252,.08)",borderRadius:8,border:"1px solid rgba(124,92,252,.15)"}}>
-              ⚡ Se divide 50/50 en la liquidación
-            </div>
-          )}
-        </div>
-        <div className="fg">
-          <label className="fl">Categoría</label>
-          <div className="cs">
-            {cats.map(c=>(
-              <div key={c.id} className={`cc${catId===c.id?" on":""}`} onClick={()=>setCatId(c.id)}>
-                <span className="cc-ic">{c.icon}</span>
-                <span className="cc-nm">{c.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="fg">
-          <label className="fl">Fecha</label>
-          <input className="fi" type="date" value={date} onChange={e=>setDate(e.target.value)}/>
-        </div>
-        <div className="fg">
-          <label className="fl">Nota (opcional)</label>
-          <input className="fi" type="text" placeholder="Agrega una nota..." value={note} onChange={e=>setNote(e.target.value)}/>
-        </div>
-        <button className="btn btnp" onClick={save}>Guardar</button>
-        {isEdit&&<button className="btn btng" style={{marginTop:7}} onClick={onClose}>Cancelar</button>}
-      </div>
-    </div>
+    React.createElement('div', { className: "ovl", onClick: e=>e.target===e.currentTarget&&onClose(), __self: this, __source: {fileName: _jsxFileName, lineNumber: 455}}
+      , React.createElement('div', { className: "sht", __self: this, __source: {fileName: _jsxFileName, lineNumber: 456}}
+        , React.createElement('div', { className: "hdl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 457}})
+        , React.createElement('div', { className: "sttl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 458}}, isEdit?"Editar":"Nuevo", " Movimiento" )
+        , React.createElement('div', { className: "fg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 459}}
+          , React.createElement('div', { className: "tgl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 460}}
+            , React.createElement('button', { className: `tgb${type==="gasto"?" g":""}`, onClick: ()=>setType("gasto"), __self: this, __source: {fileName: _jsxFileName, lineNumber: 461}}, "💸 Gasto" )
+            , React.createElement('button', { className: `tgb${type==="ahorro"?" a":""}`, onClick: ()=>setType("ahorro"), __self: this, __source: {fileName: _jsxFileName, lineNumber: 462}}, "💰 Ahorro" )
+          )
+        )
+        , React.createElement('div', { className: "fg", style: {textAlign:"center"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 465}}
+          , React.createElement('label', { className: "fl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 466}}, "Valor")
+          , React.createElement('div', { style: {position:"relative"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 467}}
+            , React.createElement('span', { style: {position:"absolute",left:"calc(50% - 55px)",top:16,fontSize:19,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 468}}, "$")
+            , React.createElement('input', { className: "fam", type: "number", placeholder: "0", value: amount, onChange: e=>setAmount(e.target.value), inputMode: "decimal", __self: this, __source: {fileName: _jsxFileName, lineNumber: 469}})
+          )
+        )
+        , React.createElement('div', { className: "fg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 472}}
+          , React.createElement('label', { className: "fl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 473}}, "Persona")
+          , React.createElement('div', { className: "pg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 474}}
+            , ["Diego","Kelly","Compartido"].map(p=>(
+              React.createElement('button', { key: p, className: `pb${person===p?" on":""}`, onClick: ()=>setPerson(p), __self: this, __source: {fileName: _jsxFileName, lineNumber: 476}}, p)
+            ))
+          )
+          , person==="Compartido"&&(
+            React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginTop:6,padding:"6px 10px",background:"rgba(124,92,252,.08)",borderRadius:8,border:"1px solid rgba(124,92,252,.15)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 480}}, "⚡ Se divide 50/50 en la liquidación"
+
+            )
+          )
+        )
+        , React.createElement('div', { className: "fg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 485}}
+          , React.createElement('label', { className: "fl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 486}}, "Categoría")
+          , React.createElement('div', { className: "cs", __self: this, __source: {fileName: _jsxFileName, lineNumber: 487}}
+            , cats.map(c=>(
+              React.createElement('div', { key: c.id, className: `cc${catId===c.id?" on":""}`, onClick: ()=>setCatId(c.id), __self: this, __source: {fileName: _jsxFileName, lineNumber: 489}}
+                , React.createElement('span', { className: "cc-ic", __self: this, __source: {fileName: _jsxFileName, lineNumber: 490}}, c.icon)
+                , React.createElement('span', { className: "cc-nm", __self: this, __source: {fileName: _jsxFileName, lineNumber: 491}}, c.name)
+              )
+            ))
+          )
+        )
+        , React.createElement('div', { className: "fg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 496}}
+          , React.createElement('label', { className: "fl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 497}}, "Fecha")
+          , React.createElement('input', { className: "fi", type: "date", value: date, onChange: e=>setDate(e.target.value), __self: this, __source: {fileName: _jsxFileName, lineNumber: 498}})
+        )
+        , React.createElement('div', { className: "fg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 500}}
+          , React.createElement('label', { className: "fl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 501}}, "Nota (opcional)" )
+          , React.createElement('input', { className: "fi", type: "text", placeholder: "Agrega una nota..."  , value: note, onChange: e=>setNote(e.target.value), __self: this, __source: {fileName: _jsxFileName, lineNumber: 502}})
+        )
+        , React.createElement('button', { className: "btn btnp" , onClick: save, __self: this, __source: {fileName: _jsxFileName, lineNumber: 504}}, "Guardar")
+        , isEdit&&React.createElement('button', { className: "btn btng" , style: {marginTop:7}, onClick: onClose, __self: this, __source: {fileName: _jsxFileName, lineNumber: 505}}, "Cancelar")
+      )
+    )
   );
 }
 
@@ -563,54 +562,54 @@ function WithdrawSheet({onClose,onSave,cats}){
     onClose();
   };
   return (
-    <div className="ovl" onClick={e=>e.target===e.currentTarget&&onClose()}>
-      <div className="sht">
-        <div className="hdl"/>
-        <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:16}}>
-          <div style={{width:36,height:36,background:"rgba(244,63,94,.15)",borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18}}>📤</div>
-          <div className="sttl" style={{margin:0}}>Retirar Ahorro</div>
-        </div>
-        <div style={{background:"rgba(244,63,94,.07)",border:"1px solid rgba(244,63,94,.2)",borderRadius:10,padding:"10px 13px",marginBottom:14,fontSize:12,color:"#f87171"}}>
-          ⚠️ El retiro descuenta del saldo de ahorros. No afecta gastos ni presupuesto.
-        </div>
-        <div className="fg" style={{textAlign:"center"}}>
-          <label className="fl">Monto a retirar</label>
-          <div style={{position:"relative"}}>
-            <span style={{position:"absolute",left:"calc(50% - 55px)",top:16,fontSize:19,color:"var(--mt)"}}>$</span>
-            <input className="fam" style={{borderBottomColor:"var(--rd)"}} type="number" placeholder="0" value={amount} onChange={e=>setAmount(e.target.value)} inputMode="decimal"/>
-          </div>
-        </div>
-        <div className="fg">
-          <label className="fl">Persona</label>
-          <div className="pg">
-            {["Diego","Kelly","Compartido"].map(p=>(
-              <button key={p} className={`pb${person===p?" on":""}`} onClick={()=>setPerson(p)}>{p}</button>
-            ))}
-          </div>
-        </div>
-        <div className="fg">
-          <label className="fl">Categoría</label>
-          <div className="cs">
-            {cats.map(c=>(
-              <div key={c.id} className={`cc${catId===c.id?" on":""}`} onClick={()=>setCatId(c.id)}>
-                <span className="cc-ic">{c.icon}</span>
-                <span className="cc-nm">{c.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="fg">
-          <label className="fl">Fecha</label>
-          <input className="fi" type="date" value={date} onChange={e=>setDate(e.target.value)}/>
-        </div>
-        <div className="fg">
-          <label className="fl">Motivo (opcional)</label>
-          <input className="fi" type="text" placeholder="Ej: Emergencia, viaje..." value={note} onChange={e=>setNote(e.target.value)}/>
-        </div>
-        <button className="btn btnr" onClick={save}>📤 Confirmar Retiro</button>
-        <button className="btn btng" style={{marginTop:7}} onClick={onClose}>Cancelar</button>
-      </div>
-    </div>
+    React.createElement('div', { className: "ovl", onClick: e=>e.target===e.currentTarget&&onClose(), __self: this, __source: {fileName: _jsxFileName, lineNumber: 527}}
+      , React.createElement('div', { className: "sht", __self: this, __source: {fileName: _jsxFileName, lineNumber: 528}}
+        , React.createElement('div', { className: "hdl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 529}})
+        , React.createElement('div', { style: {display:"flex",alignItems:"center",gap:10,marginBottom:16}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 530}}
+          , React.createElement('div', { style: {width:36,height:36,background:"rgba(244,63,94,.15)",borderRadius:10,display:"flex",alignItems:"center",justifyContent:"center",fontSize:18}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 531}}, "📤")
+          , React.createElement('div', { className: "sttl", style: {margin:0}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 532}}, "Retirar Ahorro" )
+        )
+        , React.createElement('div', { style: {background:"rgba(244,63,94,.07)",border:"1px solid rgba(244,63,94,.2)",borderRadius:10,padding:"10px 13px",marginBottom:14,fontSize:12,color:"#f87171"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 534}}, "⚠️ El retiro descuenta del saldo de ahorros. No afecta gastos ni presupuesto."
+
+        )
+        , React.createElement('div', { className: "fg", style: {textAlign:"center"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 537}}
+          , React.createElement('label', { className: "fl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 538}}, "Monto a retirar"  )
+          , React.createElement('div', { style: {position:"relative"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 539}}
+            , React.createElement('span', { style: {position:"absolute",left:"calc(50% - 55px)",top:16,fontSize:19,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 540}}, "$")
+            , React.createElement('input', { className: "fam", style: {borderBottomColor:"var(--rd)"}, type: "number", placeholder: "0", value: amount, onChange: e=>setAmount(e.target.value), inputMode: "decimal", __self: this, __source: {fileName: _jsxFileName, lineNumber: 541}})
+          )
+        )
+        , React.createElement('div', { className: "fg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 544}}
+          , React.createElement('label', { className: "fl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 545}}, "Persona")
+          , React.createElement('div', { className: "pg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 546}}
+            , ["Diego","Kelly","Compartido"].map(p=>(
+              React.createElement('button', { key: p, className: `pb${person===p?" on":""}`, onClick: ()=>setPerson(p), __self: this, __source: {fileName: _jsxFileName, lineNumber: 548}}, p)
+            ))
+          )
+        )
+        , React.createElement('div', { className: "fg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 552}}
+          , React.createElement('label', { className: "fl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 553}}, "Categoría")
+          , React.createElement('div', { className: "cs", __self: this, __source: {fileName: _jsxFileName, lineNumber: 554}}
+            , cats.map(c=>(
+              React.createElement('div', { key: c.id, className: `cc${catId===c.id?" on":""}`, onClick: ()=>setCatId(c.id), __self: this, __source: {fileName: _jsxFileName, lineNumber: 556}}
+                , React.createElement('span', { className: "cc-ic", __self: this, __source: {fileName: _jsxFileName, lineNumber: 557}}, c.icon)
+                , React.createElement('span', { className: "cc-nm", __self: this, __source: {fileName: _jsxFileName, lineNumber: 558}}, c.name)
+              )
+            ))
+          )
+        )
+        , React.createElement('div', { className: "fg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 563}}
+          , React.createElement('label', { className: "fl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 564}}, "Fecha")
+          , React.createElement('input', { className: "fi", type: "date", value: date, onChange: e=>setDate(e.target.value), __self: this, __source: {fileName: _jsxFileName, lineNumber: 565}})
+        )
+        , React.createElement('div', { className: "fg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 567}}
+          , React.createElement('label', { className: "fl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 568}}, "Motivo (opcional)" )
+          , React.createElement('input', { className: "fi", type: "text", placeholder: "Ej: Emergencia, viaje..."  , value: note, onChange: e=>setNote(e.target.value), __self: this, __source: {fileName: _jsxFileName, lineNumber: 569}})
+        )
+        , React.createElement('button', { className: "btn btnr" , onClick: save, __self: this, __source: {fileName: _jsxFileName, lineNumber: 571}}, "📤 Confirmar Retiro"  )
+        , React.createElement('button', { className: "btn btng" , style: {marginTop:7}, onClick: onClose, __self: this, __source: {fileName: _jsxFileName, lineNumber: 572}}, "Cancelar")
+      )
+    )
   );
 }
 
@@ -621,79 +620,79 @@ function SettleSheet({entries,period,onClose,onSettle}){
   const gastos = getPeriodEntries(entries, period);
   const s      = calcSettlement(gastos);
   return (
-    <div className="ovl" onClick={e=>e.target===e.currentTarget&&onClose()}>
-      <div className="sht">
-        <div className="hdl"/>
-        <div className="sttl">Liquidar Periodo</div>
-        <div style={{fontSize:12,color:"var(--mt2)",marginBottom:14}}>{period.label}</div>
+    React.createElement('div', { className: "ovl", onClick: e=>e.target===e.currentTarget&&onClose(), __self: this, __source: {fileName: _jsxFileName, lineNumber: 585}}
+      , React.createElement('div', { className: "sht", __self: this, __source: {fileName: _jsxFileName, lineNumber: 586}}
+        , React.createElement('div', { className: "hdl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 587}})
+        , React.createElement('div', { className: "sttl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 588}}, "Liquidar Periodo" )
+        , React.createElement('div', { style: {fontSize:12,color:"var(--mt2)",marginBottom:14}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 589}}, period.label)
 
-        <div className="card" style={{marginBottom:10}}>
-          <div style={{display:"flex",justifyContent:"space-between",marginBottom:10}}>
-            <span style={{fontSize:13,color:"var(--mt)"}}>Total del periodo</span>
-            <span style={{fontSize:16,fontWeight:800,fontFamily:"Sora"}}>{fmt(s.total)}</span>
-          </div>
-          <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}>
-            <span style={{fontSize:13,color:"var(--mt)"}}>Le corresponde a cada uno</span>
-            <span style={{fontSize:14,fontWeight:700}}>{fmt(s.share)}</span>
-          </div>
-          <div className="div"/>
-          {[{l:"Diego pagó",paid:s.dPaid,bal:s.dBal},{l:"Kelly pagó",paid:s.kPaid,bal:s.kBal}].map(r=>(
-            <div key={r.l} style={{display:"flex",justifyContent:"space-between",marginBottom:7}}>
-              <div>
-                <div style={{fontSize:13,fontWeight:600}}>{r.l}</div>
-                <div style={{fontSize:11,color:r.bal>0?"var(--gn)":r.bal<0?"var(--rd)":"var(--mt)"}}>
-                  {r.bal>0?`le deben ${fmt(r.bal)}`:r.bal<0?`debe ${fmt(Math.abs(r.bal))}`:"cuadrado ✓"}
-                </div>
-              </div>
-              <span style={{fontSize:15,fontWeight:800,fontFamily:"Sora"}}>{fmt(r.paid)}</span>
-            </div>
-          ))}
-        </div>
+        , React.createElement('div', { className: "card", style: {marginBottom:10}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 591}}
+          , React.createElement('div', { style: {display:"flex",justifyContent:"space-between",marginBottom:10}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 592}}
+            , React.createElement('span', { style: {fontSize:13,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 593}}, "Total del periodo"  )
+            , React.createElement('span', { style: {fontSize:16,fontWeight:800,fontFamily:"Sora"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 594}}, fmt(s.total))
+          )
+          , React.createElement('div', { style: {display:"flex",justifyContent:"space-between",marginBottom:8}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 596}}
+            , React.createElement('span', { style: {fontSize:13,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 597}}, "Le corresponde a cada uno"    )
+            , React.createElement('span', { style: {fontSize:14,fontWeight:700}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 598}}, fmt(s.share))
+          )
+          , React.createElement('div', { className: "div", __self: this, __source: {fileName: _jsxFileName, lineNumber: 600}})
+          , [{l:"Diego pagó",paid:s.dPaid,bal:s.dBal},{l:"Kelly pagó",paid:s.kPaid,bal:s.kBal}].map(r=>(
+            React.createElement('div', { key: r.l, style: {display:"flex",justifyContent:"space-between",marginBottom:7}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 602}}
+              , React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 603}}
+                , React.createElement('div', { style: {fontSize:13,fontWeight:600}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 604}}, r.l)
+                , React.createElement('div', { style: {fontSize:11,color:r.bal>0?"var(--gn)":r.bal<0?"var(--rd)":"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 605}}
+                  , r.bal>0?`le deben ${fmt(r.bal)}`:r.bal<0?`debe ${fmt(Math.abs(r.bal))}`:"cuadrado ✓"
+                )
+              )
+              , React.createElement('span', { style: {fontSize:15,fontWeight:800,fontFamily:"Sora"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 609}}, fmt(r.paid))
+            )
+          ))
+        )
 
-        {s.owes?(
-          <div style={{background:"rgba(251,191,36,.08)",border:"1px solid rgba(251,191,36,.25)",borderRadius:13,padding:14,marginBottom:12,textAlign:"center"}}>
-            <div style={{fontSize:11,color:"var(--yw)",fontWeight:800,letterSpacing:.4,textTransform:"uppercase",marginBottom:7}}>Transferencia necesaria</div>
-            <div style={{fontFamily:"Sora",fontSize:19,fontWeight:800,marginBottom:4}}>
-              <PBadge p={s.owes.from}/> <span style={{color:"var(--mt)",margin:"0 6px"}}>→</span> <PBadge p={s.owes.to}/>
-            </div>
-            <div style={{fontFamily:"Sora",fontSize:26,fontWeight:800,color:"var(--yw)"}}>{fmt(s.owes.amount)}</div>
-          </div>
+        , s.owes?(
+          React.createElement('div', { style: {background:"rgba(251,191,36,.08)",border:"1px solid rgba(251,191,36,.25)",borderRadius:13,padding:14,marginBottom:12,textAlign:"center"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 615}}
+            , React.createElement('div', { style: {fontSize:11,color:"var(--yw)",fontWeight:800,letterSpacing:.4,textTransform:"uppercase",marginBottom:7}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 616}}, "Transferencia necesaria" )
+            , React.createElement('div', { style: {fontFamily:"Sora",fontSize:19,fontWeight:800,marginBottom:4}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 617}}
+              , React.createElement(PBadge, { p: s.owes.from, __self: this, __source: {fileName: _jsxFileName, lineNumber: 618}}), " " , React.createElement('span', { style: {color:"var(--mt)",margin:"0 6px"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 618}}, "→"), " " , React.createElement(PBadge, { p: s.owes.to, __self: this, __source: {fileName: _jsxFileName, lineNumber: 618}})
+            )
+            , React.createElement('div', { style: {fontFamily:"Sora",fontSize:26,fontWeight:800,color:"var(--yw)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 620}}, fmt(s.owes.amount))
+          )
         ):(
-          <div style={{background:"rgba(34,197,94,.08)",border:"1px solid rgba(34,197,94,.2)",borderRadius:13,padding:14,marginBottom:12,textAlign:"center"}}>
-            <div style={{fontSize:22}}>✅</div>
-            <div style={{fontFamily:"Sora",fontSize:15,fontWeight:700,marginTop:5}}>¡Están cuadrados!</div>
-          </div>
-        )}
+          React.createElement('div', { style: {background:"rgba(34,197,94,.08)",border:"1px solid rgba(34,197,94,.2)",borderRadius:13,padding:14,marginBottom:12,textAlign:"center"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 623}}
+            , React.createElement('div', { style: {fontSize:22}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 624}}, "✅")
+            , React.createElement('div', { style: {fontFamily:"Sora",fontSize:15,fontWeight:700,marginTop:5}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 625}}, "¡Están cuadrados!" )
+          )
+        )
 
-        <div style={{fontSize:11,color:"var(--mt)",fontWeight:700,textTransform:"uppercase",letterSpacing:.4,marginBottom:8}}>
-          {gastos.length} gastos · {fmt(s.total)}
-        </div>
-        {gastos.map(e=>{
+        , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",fontWeight:700,textTransform:"uppercase",letterSpacing:.4,marginBottom:8}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 629}}
+          , gastos.length, " gastos · "   , fmt(s.total)
+        )
+        , gastos.map(e=>{
           const cat=getCat(e.category_id,CATEGORIES);
           const dS=e.person==="Compartido"?e.amount/2:e.person==="Diego"?e.amount:0;
           const kS=e.person==="Compartido"?e.amount/2:e.person==="Kelly"?e.amount:0;
           return (
-            <div key={e.id} style={{display:"flex",alignItems:"center",gap:9,padding:"8px 0",borderBottom:"1px solid var(--bd)"}}>
-              <span style={{fontSize:15}}>{cat.icon}</span>
-              <div style={{flex:1}}>
-                <div style={{fontSize:12,fontWeight:600}}>{cat.name}{e.note?` · ${e.note}`:""}</div>
-                <div style={{fontSize:11,color:"var(--mt)",display:"flex",gap:5,flexWrap:"wrap",marginTop:1}}>
-                  <PBadge p={e.person}/><span>· {fmtDate(e.entry_date)}</span>
-                  {e.person==="Compartido"&&<span style={{color:"var(--mt2)"}}>D:{fmt(dS)} / K:{fmt(kS)}</span>}
-                </div>
-              </div>
-              <span style={{fontSize:12,fontWeight:700,color:"var(--rd)"}}>{fmt(e.amount)}</span>
-            </div>
+            React.createElement('div', { key: e.id, style: {display:"flex",alignItems:"center",gap:9,padding:"8px 0",borderBottom:"1px solid var(--bd)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 637}}
+              , React.createElement('span', { style: {fontSize:15}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 638}}, cat.icon)
+              , React.createElement('div', { style: {flex:1}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 639}}
+                , React.createElement('div', { style: {fontSize:12,fontWeight:600}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 640}}, cat.name, e.note?` · ${e.note}`:"")
+                , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",display:"flex",gap:5,flexWrap:"wrap",marginTop:1}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 641}}
+                  , React.createElement(PBadge, { p: e.person, __self: this, __source: {fileName: _jsxFileName, lineNumber: 642}}), React.createElement('span', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 642}}, "· " , fmtDate(e.entry_date))
+                  , e.person==="Compartido"&&React.createElement('span', { style: {color:"var(--mt2)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 643}}, "D:", fmt(dS), " / K:"  , fmt(kS))
+                )
+              )
+              , React.createElement('span', { style: {fontSize:12,fontWeight:700,color:"var(--rd)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 646}}, fmt(e.amount))
+            )
           );
-        })}
+        })
 
-        <button className="btn btns" style={{marginTop:14}} onClick={()=>{
+        , React.createElement('button', { className: "btn btns" , style: {marginTop:14}, onClick: ()=>{
           onSettle({period,settle:s,date:todayStr()});    // FIX: was toISOString()
           onClose();
-        }}>✓ Confirmar Liquidación</button>
-        <button className="btn btng" style={{marginTop:7}} onClick={onClose}>Cancelar</button>
-      </div>
-    </div>
+        }, __self: this, __source: {fileName: _jsxFileName, lineNumber: 651}}, "✓ Confirmar Liquidación"  )
+        , React.createElement('button', { className: "btn btng" , style: {marginTop:7}, onClick: onClose, __self: this, __source: {fileName: _jsxFileName, lineNumber: 655}}, "Cancelar")
+      )
+    )
   );
 }
 
@@ -704,37 +703,37 @@ function SettleCfgSheet({cfg,onChange,onClose}){
   const [anchor,  setAnchor]   = useState(cfg.anchorDate);
   const [interval,setInterval] = useState(cfg.intervalDays);
   const nextPreview = useMemo(()=>{
-    try { return addDays(anchor, Number(interval)); } catch { return null; }  // FIX: pure addDays not toISOString
+    try { return addDays(anchor, Number(interval)); } catch (e4) { return null; }  // FIX: pure addDays not toISOString
   },[anchor,interval]);
   const save = () => { onChange({anchorDate:anchor,intervalDays:Number(interval)}); onClose(); };
   return (
-    <div className="ovl" onClick={e=>e.target===e.currentTarget&&onClose()}>
-      <div className="sht">
-        <div className="hdl"/>
-        <div className="sttl">⚙️ Configurar Liquidación</div>
-        <div className="fg">
-          <label className="fl">Última fecha liquidada (ancla)</label>
-          <input className="fi" type="date" value={anchor} onChange={e=>setAnchor(e.target.value)}/>
-          <div style={{fontSize:11,color:"var(--mt)",marginTop:5}}>
-            La app genera todos los periodos hacia atrás y adelante desde esta fecha.
-          </div>
-        </div>
-        <div className="fg">
-          <label className="fl">Intervalo (días)</label>
-          <input className="fi" type="number" value={interval} min={7} max={31} onChange={e=>setInterval(e.target.value)}/>
-          <div style={{fontSize:11,color:"var(--mt)",marginTop:5}}>
-            14 = cada dos viernes · 7 = semanal · 30 = mensual
-          </div>
-        </div>
-        {nextPreview&&(
-          <div style={{fontSize:12,color:"var(--ac)",background:"rgba(79,124,255,.08)",borderRadius:9,padding:"8px 12px",marginBottom:14}}>
-            📅 Próxima liquidación: <strong>{fmtDate(nextPreview)}</strong>
-          </div>
-        )}
-        <button className="btn btnp" onClick={save}>Guardar</button>
-        <button className="btn btng" style={{marginTop:7}} onClick={onClose}>Cancelar</button>
-      </div>
-    </div>
+    React.createElement('div', { className: "ovl", onClick: e=>e.target===e.currentTarget&&onClose(), __self: this, __source: {fileName: _jsxFileName, lineNumber: 672}}
+      , React.createElement('div', { className: "sht", __self: this, __source: {fileName: _jsxFileName, lineNumber: 673}}
+        , React.createElement('div', { className: "hdl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 674}})
+        , React.createElement('div', { className: "sttl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 675}}, "⚙️ Configurar Liquidación"  )
+        , React.createElement('div', { className: "fg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 676}}
+          , React.createElement('label', { className: "fl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 677}}, "Última fecha liquidada (ancla)"   )
+          , React.createElement('input', { className: "fi", type: "date", value: anchor, onChange: e=>setAnchor(e.target.value), __self: this, __source: {fileName: _jsxFileName, lineNumber: 678}})
+          , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginTop:5}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 679}}, "La app genera todos los periodos hacia atrás y adelante desde esta fecha."
+
+          )
+        )
+        , React.createElement('div', { className: "fg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 683}}
+          , React.createElement('label', { className: "fl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 684}}, "Intervalo (días)" )
+          , React.createElement('input', { className: "fi", type: "number", value: interval, min: 7, max: 31, onChange: e=>setInterval(e.target.value), __self: this, __source: {fileName: _jsxFileName, lineNumber: 685}})
+          , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginTop:5}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 686}}, "14 = cada dos viernes · 7 = semanal · 30 = mensual"
+
+          )
+        )
+        , nextPreview&&(
+          React.createElement('div', { style: {fontSize:12,color:"var(--ac)",background:"rgba(79,124,255,.08)",borderRadius:9,padding:"8px 12px",marginBottom:14}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 691}}, "📅 Próxima liquidación: "
+               , React.createElement('strong', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 692}}, fmtDate(nextPreview))
+          )
+        )
+        , React.createElement('button', { className: "btn btnp" , onClick: save, __self: this, __source: {fileName: _jsxFileName, lineNumber: 695}}, "Guardar")
+        , React.createElement('button', { className: "btn btng" , style: {marginTop:7}, onClick: onClose, __self: this, __source: {fileName: _jsxFileName, lineNumber: 696}}, "Cancelar")
+      )
+    )
   );
 }
 
@@ -769,91 +768,91 @@ function Dashboard({entries,budget,cats,settlements,cfg,onOpenSettle,sel,setSel,
   })).filter(c=>c.total>0).sort((a,b)=>b.total-a.total).slice(0,5);
 
   return (
-    <div>
-      <MonthBar months={months} sel={sel} onChange={setSel}/>
+    React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 733}}
+      , React.createElement(MonthBar, { months: months, sel: sel, onChange: setSel, __self: this, __source: {fileName: _jsxFileName, lineNumber: 734}})
 
-      {/* SETTLEMENT STATUS */}
-      <div className={`sc ${isSettled?"set":settle.owes?"owe":"bal"}`}>
-        <div className={`sbdg ${isSettled?"dn":settle.owes?"pe":"ok"}`}>
-          {isSettled?"✓ Liquidado":settle.owes?"⚡ Pendiente":"✓ Cuadrados"}
-        </div>
-        <div className="ss">
-          {isSettled?"Periodo cerrado":settle.owes?`${settle.owes.from} debe ${fmt(settle.owes.amount)}`:"¡Están al día!"}
-        </div>
-        <div className="su">
-          {isSettled?"Siguiente periodo activo"
+      /* SETTLEMENT STATUS */
+      , React.createElement('div', { className: `sc ${isSettled?"set":settle.owes?"owe":"bal"}`, __self: this, __source: {fileName: _jsxFileName, lineNumber: 737}}
+        , React.createElement('div', { className: `sbdg ${isSettled?"dn":settle.owes?"pe":"ok"}`, __self: this, __source: {fileName: _jsxFileName, lineNumber: 738}}
+          , isSettled?"✓ Liquidado":settle.owes?"⚡ Pendiente":"✓ Cuadrados"
+        )
+        , React.createElement('div', { className: "ss", __self: this, __source: {fileName: _jsxFileName, lineNumber: 741}}
+          , isSettled?"Periodo cerrado":settle.owes?`${settle.owes.from} debe ${fmt(settle.owes.amount)}`:"¡Están al día!"
+        )
+        , React.createElement('div', { className: "su", __self: this, __source: {fileName: _jsxFileName, lineNumber: 744}}
+          , isSettled?"Siguiente periodo activo"
             :settle.owes?`a ${settle.owes.to} · ${period.label}`
-            :`${period.label} · ${fmt(settle.total)} en gastos`}
-        </div>
-        {!isSettled&&(
-          <button onClick={onOpenSettle} style={{marginTop:12,padding:"8px 16px",background:"rgba(255,255,255,.07)",
-            border:"1px solid var(--bd2)",borderRadius:9,color:"var(--tx)",fontSize:12,fontWeight:700,fontFamily:"inherit",cursor:"pointer"}}>
-            Ver detalle y liquidar →
-          </button>
-        )}
-      </div>
+            :`${period.label} · ${fmt(settle.total)} en gastos`
+        )
+        , !isSettled&&(
+          React.createElement('button', { onClick: onOpenSettle, style: {marginTop:12,padding:"8px 16px",background:"rgba(255,255,255,.07)",
+            border:"1px solid var(--bd2)",borderRadius:9,color:"var(--tx)",fontSize:12,fontWeight:700,fontFamily:"inherit",cursor:"pointer"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 750}}, "Ver detalle y liquidar →"
 
-      {/* BUDGET HERO */}
-      <div className="hero">
-        <div className="hl">{label}</div>
-        <div className="ha" style={{color:avail<0?"var(--rd)":"var(--tx)"}}>{fmt(avail)}</div>
-        <div style={{fontSize:11,color:"var(--mt)",marginTop:3}}>disponible de {fmt(budget.total)}</div>
-        <Prog pct={bPct} thick/>
-        <div style={{display:"flex",justifyContent:"space-between",marginTop:5,fontSize:11,color:"var(--mt)"}}>
-          <span>Gastado {fmt(tG)}</span>
-          <span style={{color:bPct>=100?"var(--rd)":bPct>=80?"var(--yw)":"var(--mt)"}}>
-            {bPct>=100?"🔴 Límite":bPct>=80?"⚠️ Cuidado":`${bPct.toFixed(0)}%`}
-          </span>
-        </div>
-        <div className="hg">
-          <div className="hs"><div className="hs-l">💸 Gastado</div><div className="hs-v" style={{color:"var(--rd)"}}>{fmt(tG)}</div></div>
-          <div className="hs"><div className="hs-l">💰 Ahorrado</div><div className="hs-v" style={{color:"var(--gn)"}}>{fmt(tA)}</div></div>
-        </div>
-      </div>
+          )
+        )
+      )
 
-      {/* DIEGO VS KELLY */}
-      <div className="sec"><span className="sec-t">Diego vs Kelly</span><span style={{fontSize:11,color:"var(--mt)"}}>{label}</span></div>
-      <div className="cg">
-        {byP.map(x=>(
-          <div key={x.p} className="cp">
-            <div style={{fontSize:10,color:"var(--mt)",fontWeight:700,letterSpacing:.3,textTransform:"uppercase",marginBottom:5}}>{x.p}</div>
-            <div style={{fontFamily:"Sora",fontSize:20,fontWeight:800,color:"var(--rd)"}}>{fmt(x.g)}</div>
-            <div style={{fontSize:11,color:"var(--mt)",marginTop:2}}>gastos</div>
-            <div style={{fontFamily:"Sora",fontSize:15,fontWeight:800,color:"var(--gn)",marginTop:6}}>{fmt(x.a)}</div>
-            <div style={{fontSize:11,color:"var(--mt)",marginTop:2}}>ahorros</div>
-          </div>
-        ))}
-        <div style={{textAlign:"center",fontSize:12,fontWeight:700,color:"var(--mt)"}}>VS</div>
-      </div>
+      /* BUDGET HERO */
+      , React.createElement('div', { className: "hero", __self: this, __source: {fileName: _jsxFileName, lineNumber: 758}}
+        , React.createElement('div', { className: "hl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 759}}, label)
+        , React.createElement('div', { className: "ha", style: {color:avail<0?"var(--rd)":"var(--tx)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 760}}, fmt(avail))
+        , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginTop:3}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 761}}, "disponible de "  , fmt(budget.total))
+        , React.createElement(Prog, { pct: bPct, thick: true, __self: this, __source: {fileName: _jsxFileName, lineNumber: 762}})
+        , React.createElement('div', { style: {display:"flex",justifyContent:"space-between",marginTop:5,fontSize:11,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 763}}
+          , React.createElement('span', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 764}}, "Gastado " , fmt(tG))
+          , React.createElement('span', { style: {color:bPct>=100?"var(--rd)":bPct>=80?"var(--yw)":"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 765}}
+            , bPct>=100?"🔴 Límite":bPct>=80?"⚠️ Cuidado":`${bPct.toFixed(0)}%`
+          )
+        )
+        , React.createElement('div', { className: "hg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 769}}
+          , React.createElement('div', { className: "hs", __self: this, __source: {fileName: _jsxFileName, lineNumber: 770}}, React.createElement('div', { className: "hs-l", __self: this, __source: {fileName: _jsxFileName, lineNumber: 770}}, "💸 Gastado" ), React.createElement('div', { className: "hs-v", style: {color:"var(--rd)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 770}}, fmt(tG)))
+          , React.createElement('div', { className: "hs", __self: this, __source: {fileName: _jsxFileName, lineNumber: 771}}, React.createElement('div', { className: "hs-l", __self: this, __source: {fileName: _jsxFileName, lineNumber: 771}}, "💰 Ahorrado" ), React.createElement('div', { className: "hs-v", style: {color:"var(--gn)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 771}}, fmt(tA)))
+        )
+      )
 
-      {/* TOP CATS */}
-      {topCats.length>0&&<>
-        <div className="sec"><span className="sec-t">Top Categorías</span></div>
-        <div className="card">
-          {topCats.map(c=>{
+      /* DIEGO VS KELLY */
+      , React.createElement('div', { className: "sec", __self: this, __source: {fileName: _jsxFileName, lineNumber: 776}}, React.createElement('span', { className: "sec-t", __self: this, __source: {fileName: _jsxFileName, lineNumber: 776}}, "Diego vs Kelly"  ), React.createElement('span', { style: {fontSize:11,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 776}}, label))
+      , React.createElement('div', { className: "cg", __self: this, __source: {fileName: _jsxFileName, lineNumber: 777}}
+        , byP.map(x=>(
+          React.createElement('div', { key: x.p, className: "cp", __self: this, __source: {fileName: _jsxFileName, lineNumber: 779}}
+            , React.createElement('div', { style: {fontSize:10,color:"var(--mt)",fontWeight:700,letterSpacing:.3,textTransform:"uppercase",marginBottom:5}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 780}}, x.p)
+            , React.createElement('div', { style: {fontFamily:"Sora",fontSize:20,fontWeight:800,color:"var(--rd)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 781}}, fmt(x.g))
+            , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginTop:2}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 782}}, "gastos")
+            , React.createElement('div', { style: {fontFamily:"Sora",fontSize:15,fontWeight:800,color:"var(--gn)",marginTop:6}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 783}}, fmt(x.a))
+            , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginTop:2}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 784}}, "ahorros")
+          )
+        ))
+        , React.createElement('div', { style: {textAlign:"center",fontSize:12,fontWeight:700,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 787}}, "VS")
+      )
+
+      /* TOP CATS */
+      , topCats.length>0&&React.createElement(React.Fragment, null
+        , React.createElement('div', { className: "sec", __self: this, __source: {fileName: _jsxFileName, lineNumber: 792}}, React.createElement('span', { className: "sec-t", __self: this, __source: {fileName: _jsxFileName, lineNumber: 792}}, "Top Categorías" ))
+        , React.createElement('div', { className: "card", __self: this, __source: {fileName: _jsxFileName, lineNumber: 793}}
+          , topCats.map(c=>{
             const pct=c.bud>0?(c.total/c.bud)*100:0;
             return (
-              <div key={c.id} className="bc">
-                <div className="br">
-                  <span className="bcl"><span>{c.icon}</span>{c.name}</span>
-                  <span style={{fontSize:12,color:"var(--mt2)"}}>{fmt(c.total)}{c.bud>0?` / ${fmt(c.bud)}`:""}</span>
-                </div>
-                {c.bud>0&&<Prog pct={pct} color={c.color}/>}
-              </div>
+              React.createElement('div', { key: c.id, className: "bc", __self: this, __source: {fileName: _jsxFileName, lineNumber: 797}}
+                , React.createElement('div', { className: "br", __self: this, __source: {fileName: _jsxFileName, lineNumber: 798}}
+                  , React.createElement('span', { className: "bcl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 799}}, React.createElement('span', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 799}}, c.icon), c.name)
+                  , React.createElement('span', { style: {fontSize:12,color:"var(--mt2)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 800}}, fmt(c.total), c.bud>0?` / ${fmt(c.bud)}`:"")
+                )
+                , c.bud>0&&React.createElement(Prog, { pct: pct, color: c.color, __self: this, __source: {fileName: _jsxFileName, lineNumber: 802}})
+              )
             );
-          })}
-        </div>
-      </>}
+          })
+        )
+      )
 
-      {/* SAVINGS MINI */}
-      <div className="sec"><span className="sec-t">Ahorros</span></div>
-      <div className="card" style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:7,textAlign:"center"}}>
-        {["Diego","Kelly","Compartido"].map(p=>{
+      /* SAVINGS MINI */
+      , React.createElement('div', { className: "sec", __self: this, __source: {fileName: _jsxFileName, lineNumber: 810}}, React.createElement('span', { className: "sec-t", __self: this, __source: {fileName: _jsxFileName, lineNumber: 810}}, "Ahorros"))
+      , React.createElement('div', { className: "card", style: {display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:7,textAlign:"center"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 811}}
+        , ["Diego","Kelly","Compartido"].map(p=>{
           const t=ahorros.filter(e=>e.person===p).reduce((s,e)=>s+e.amount,0);
-          return <div key={p}><PBadge p={p}/><div style={{fontFamily:"Sora",fontSize:16,fontWeight:800,color:"var(--gn)",marginTop:5}}>{fmt(t)}</div></div>;
-        })}
-      </div>
-    </div>
+          return React.createElement('div', { key: p, __self: this, __source: {fileName: _jsxFileName, lineNumber: 814}}, React.createElement(PBadge, { p: p, __self: this, __source: {fileName: _jsxFileName, lineNumber: 814}}), React.createElement('div', { style: {fontFamily:"Sora",fontSize:16,fontWeight:800,color:"var(--gn)",marginTop:5}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 814}}, fmt(t)));
+        })
+      )
+    )
   );
 }
 
@@ -893,117 +892,117 @@ function Trends({entries,cats,budget,sel,setSel,months}){
   const avg  = k => series.length>0?series.reduce((s,d)=>s+(d[k]||0),0)/series.length:0;
   const last = series[series.length-1];
   const prev = series[series.length-2];
-  const dPct = prev&&prev.gasto>0?((last?.gasto-prev.gasto)/prev.gasto*100):0;
+  const dPct = prev&&prev.gasto>0?((_optionalChain([last, 'optionalAccess', _10 => _10.gasto])-prev.gasto)/prev.gasto*100):0;
 
   return (
-    <div>
-      <MonthBar months={months} sel={sel} onChange={setSel}/>
+    React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 860}}
+      , React.createElement(MonthBar, { months: months, sel: sel, onChange: setSel, __self: this, __source: {fileName: _jsxFileName, lineNumber: 861}})
 
-      {/* KPIs */}
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9,marginBottom:12}}>
-        <div className="csm">
-          <div style={{fontSize:11,color:"var(--mt)",marginBottom:4}}>Gasto promedio/mes</div>
-          <div style={{fontFamily:"Sora",fontSize:20,fontWeight:800,color:"var(--rd)"}}>{fmt(avg("gasto"))}</div>
-          {prev&&<div style={{fontSize:11,marginTop:3,color:dPct>0?"var(--rd)":"var(--gn)"}}>{dPct>0?"↑":"↓"} {Math.abs(dPct).toFixed(0)}% vs anterior</div>}
-        </div>
-        <div className="csm">
-          <div style={{fontSize:11,color:"var(--mt)",marginBottom:4}}>Ahorro promedio/mes</div>
-          <div style={{fontFamily:"Sora",fontSize:20,fontWeight:800,color:"var(--gn)"}}>{fmt(avg("ahorro"))}</div>
-          <div style={{fontSize:11,color:"var(--mt)",marginTop:3}}>{series.length} meses</div>
-        </div>
-      </div>
+      /* KPIs */
+      , React.createElement('div', { style: {display:"grid",gridTemplateColumns:"1fr 1fr",gap:9,marginBottom:12}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 864}}
+        , React.createElement('div', { className: "csm", __self: this, __source: {fileName: _jsxFileName, lineNumber: 865}}
+          , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginBottom:4}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 866}}, "Gasto promedio/mes" )
+          , React.createElement('div', { style: {fontFamily:"Sora",fontSize:20,fontWeight:800,color:"var(--rd)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 867}}, fmt(avg("gasto")))
+          , prev&&React.createElement('div', { style: {fontSize:11,marginTop:3,color:dPct>0?"var(--rd)":"var(--gn)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 868}}, dPct>0?"↑":"↓", " " , Math.abs(dPct).toFixed(0), "% vs anterior"  )
+        )
+        , React.createElement('div', { className: "csm", __self: this, __source: {fileName: _jsxFileName, lineNumber: 870}}
+          , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginBottom:4}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 871}}, "Ahorro promedio/mes" )
+          , React.createElement('div', { style: {fontFamily:"Sora",fontSize:20,fontWeight:800,color:"var(--gn)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 872}}, fmt(avg("ahorro")))
+          , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginTop:3}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 873}}, series.length, " meses" )
+        )
+      )
 
-      {/* CHART */}
-      <div className="card">
-        <div style={{display:"flex",gap:4,marginBottom:14}}>
-          {[["gastos","💸 Gastos"],["ahorros","💰 Ahorros"],["personas","👤 Personas"]].map(([k,l])=>(
-            <button key={k} onClick={()=>setView(k)} style={{
+      /* CHART */
+      , React.createElement('div', { className: "card", __self: this, __source: {fileName: _jsxFileName, lineNumber: 878}}
+        , React.createElement('div', { style: {display:"flex",gap:4,marginBottom:14}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 879}}
+          , [["gastos","💸 Gastos"],["ahorros","💰 Ahorros"],["personas","👤 Personas"]].map(([k,l])=>(
+            React.createElement('button', { key: k, onClick: ()=>setView(k), style: {
               flex:1,padding:"7px 4px",border:view===k?"1px solid var(--ac)":"1px solid var(--bd)",
               borderRadius:9,background:view===k?"rgba(79,124,255,.12)":"var(--bg3)",
               color:view===k?"var(--ac)":"var(--mt)",fontFamily:"inherit",fontSize:11,fontWeight:700,cursor:"pointer"
-            }}>{l}</button>
-          ))}
-        </div>
-        <div style={{fontSize:11,color:"var(--mt)",marginBottom:8,fontWeight:600,textTransform:"uppercase",letterSpacing:.4}}>Últimos {series.length} meses</div>
-        {view==="gastos"  && <TrendChart data={series} ck="gasto"/>}
-        {view==="ahorros" && <TrendChart data={series} ck="ahorro"/>}
-        {view==="personas"&&(
-          <div>
-            <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:8}}><div style={{width:10,height:10,borderRadius:2,background:"#7aa3ff"}}/><span style={{fontSize:11,color:"var(--mt2)",fontWeight:600}}>Diego (50% compartidos)</span></div>
-            <TrendChart data={series} ck="diego"/>
-            <div style={{display:"flex",alignItems:"center",gap:6,margin:"14px 0 8px"}}><div style={{width:10,height:10,borderRadius:2,background:"#f472b6"}}/><span style={{fontSize:11,color:"var(--mt2)",fontWeight:600}}>Kelly (50% compartidos)</span></div>
-            <TrendChart data={series} ck="kelly"/>
-          </div>
-        )}
-      </div>
+            }, __self: this, __source: {fileName: _jsxFileName, lineNumber: 881}}, l)
+          ))
+        )
+        , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginBottom:8,fontWeight:600,textTransform:"uppercase",letterSpacing:.4}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 888}}, "Últimos " , series.length, " meses" )
+        , view==="gastos"  && React.createElement(TrendChart, { data: series, ck: "gasto", __self: this, __source: {fileName: _jsxFileName, lineNumber: 889}})
+        , view==="ahorros" && React.createElement(TrendChart, { data: series, ck: "ahorro", __self: this, __source: {fileName: _jsxFileName, lineNumber: 890}})
+        , view==="personas"&&(
+          React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 892}}
+            , React.createElement('div', { style: {display:"flex",alignItems:"center",gap:6,marginBottom:8}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 893}}, React.createElement('div', { style: {width:10,height:10,borderRadius:2,background:"#7aa3ff"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 893}}), React.createElement('span', { style: {fontSize:11,color:"var(--mt2)",fontWeight:600}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 893}}, "Diego (50% compartidos)"  ))
+            , React.createElement(TrendChart, { data: series, ck: "diego", __self: this, __source: {fileName: _jsxFileName, lineNumber: 894}})
+            , React.createElement('div', { style: {display:"flex",alignItems:"center",gap:6,margin:"14px 0 8px"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 895}}, React.createElement('div', { style: {width:10,height:10,borderRadius:2,background:"#f472b6"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 895}}), React.createElement('span', { style: {fontSize:11,color:"var(--mt2)",fontWeight:600}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 895}}, "Kelly (50% compartidos)"  ))
+            , React.createElement(TrendChart, { data: series, ck: "kelly", __self: this, __source: {fileName: _jsxFileName, lineNumber: 896}})
+          )
+        )
+      )
 
-      {/* MONTH TABLE */}
-      <div className="sec"><span className="sec-t">Resumen por Mes</span></div>
-      <div className="card">
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",gap:4,marginBottom:9,paddingBottom:8,borderBottom:"1px solid var(--bd)"}}>
-          {["Mes","Gastos","Ahorros","Neto"].map(h=>(
-            <div key={h} style={{fontSize:10,fontWeight:800,color:"var(--mt)",textTransform:"uppercase",letterSpacing:.3}}>{h}</div>
-          ))}
-        </div>
-        {[...series].reverse().map(d=>(
-          <div key={d.month} style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",gap:4,marginBottom:8}}>
-            <div style={{fontSize:12,fontWeight:700}}>{d.label}</div>
-            <div style={{fontSize:12,fontWeight:700,color:"var(--rd)"}}>{fmtS(d.gasto)}</div>
-            <div style={{fontSize:12,fontWeight:700,color:"var(--gn)"}}>{fmtS(d.ahorro)}</div>
-            <div style={{fontSize:12,fontWeight:700,color:d.ahorro>d.gasto?"var(--gn)":"var(--mt2)"}}>{fmtS(d.ahorro-d.gasto)}</div>
-          </div>
-        ))}
-      </div>
+      /* MONTH TABLE */
+      , React.createElement('div', { className: "sec", __self: this, __source: {fileName: _jsxFileName, lineNumber: 902}}, React.createElement('span', { className: "sec-t", __self: this, __source: {fileName: _jsxFileName, lineNumber: 902}}, "Resumen por Mes"  ))
+      , React.createElement('div', { className: "card", __self: this, __source: {fileName: _jsxFileName, lineNumber: 903}}
+        , React.createElement('div', { style: {display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",gap:4,marginBottom:9,paddingBottom:8,borderBottom:"1px solid var(--bd)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 904}}
+          , ["Mes","Gastos","Ahorros","Neto"].map(h=>(
+            React.createElement('div', { key: h, style: {fontSize:10,fontWeight:800,color:"var(--mt)",textTransform:"uppercase",letterSpacing:.3}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 906}}, h)
+          ))
+        )
+        , [...series].reverse().map(d=>(
+          React.createElement('div', { key: d.month, style: {display:"grid",gridTemplateColumns:"1fr 1fr 1fr 1fr",gap:4,marginBottom:8}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 910}}
+            , React.createElement('div', { style: {fontSize:12,fontWeight:700}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 911}}, d.label)
+            , React.createElement('div', { style: {fontSize:12,fontWeight:700,color:"var(--rd)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 912}}, fmtS(d.gasto))
+            , React.createElement('div', { style: {fontSize:12,fontWeight:700,color:"var(--gn)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 913}}, fmtS(d.ahorro))
+            , React.createElement('div', { style: {fontSize:12,fontWeight:700,color:d.ahorro>d.gasto?"var(--gn)":"var(--mt2)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 914}}, fmtS(d.ahorro-d.gasto))
+          )
+        ))
+      )
 
-      {/* BUDGET VS ACTUAL */}
-      <div className="sec">
-        <span className="sec-t">Gasto vs Presupuesto</span>
-        <span style={{fontSize:11,color:"var(--mt)"}}>{sel==="all"?"todo":fmtMonth(sel)}</span>
-      </div>
-      <div className="card" style={{marginBottom:10}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}>
-          <span style={{fontSize:13,fontWeight:700}}>Total del mes</span>
-          <span style={{fontSize:12,color:"var(--mt2)"}}>{fmt(tG)} / {fmt(budget.total)}</span>
-        </div>
-        <Prog pct={bPct} thick/>
-        <div style={{display:"flex",justifyContent:"space-between",marginTop:5,fontSize:11}}>
-          <span style={{color:"var(--mt)"}}>Disponible: {fmt(budget.total-tG)}</span>
-          <span style={{color:bPct>=100?"var(--rd)":bPct>=80?"var(--yw)":"var(--gn)",fontWeight:700}}>
-            {bPct>=100?"🔴 Superado":bPct>=80?`⚠️ ${bPct.toFixed(0)}%`:`✓ ${bPct.toFixed(0)}%`}
-          </span>
-        </div>
-      </div>
-      {catData.length===0&&<div className="empty"><div className="empty-ic">📊</div><div>Sin datos</div></div>}
-      {catData.map(c=>{
+      /* BUDGET VS ACTUAL */
+      , React.createElement('div', { className: "sec", __self: this, __source: {fileName: _jsxFileName, lineNumber: 920}}
+        , React.createElement('span', { className: "sec-t", __self: this, __source: {fileName: _jsxFileName, lineNumber: 921}}, "Gasto vs Presupuesto"  )
+        , React.createElement('span', { style: {fontSize:11,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 922}}, sel==="all"?"todo":fmtMonth(sel))
+      )
+      , React.createElement('div', { className: "card", style: {marginBottom:10}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 924}}
+        , React.createElement('div', { style: {display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 925}}
+          , React.createElement('span', { style: {fontSize:13,fontWeight:700}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 926}}, "Total del mes"  )
+          , React.createElement('span', { style: {fontSize:12,color:"var(--mt2)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 927}}, fmt(tG), " / "  , fmt(budget.total))
+        )
+        , React.createElement(Prog, { pct: bPct, thick: true, __self: this, __source: {fileName: _jsxFileName, lineNumber: 929}})
+        , React.createElement('div', { style: {display:"flex",justifyContent:"space-between",marginTop:5,fontSize:11}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 930}}
+          , React.createElement('span', { style: {color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 931}}, "Disponible: " , fmt(budget.total-tG))
+          , React.createElement('span', { style: {color:bPct>=100?"var(--rd)":bPct>=80?"var(--yw)":"var(--gn)",fontWeight:700}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 932}}
+            , bPct>=100?"🔴 Superado":bPct>=80?`⚠️ ${bPct.toFixed(0)}%`:`✓ ${bPct.toFixed(0)}%`
+          )
+        )
+      )
+      , catData.length===0&&React.createElement('div', { className: "empty", __self: this, __source: {fileName: _jsxFileName, lineNumber: 937}}, React.createElement('div', { className: "empty-ic", __self: this, __source: {fileName: _jsxFileName, lineNumber: 937}}, "📊"), React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 937}}, "Sin datos" ))
+      , catData.map(c=>{
         const pct=c.bud>0?(c.total/c.bud)*100:0;
         return (
-          <div key={c.id} className="card" style={{marginBottom:8}}>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:7}}>
-              <span style={{fontSize:13,fontWeight:700,display:"flex",alignItems:"center",gap:6}}>
-                <span style={{fontSize:18}}>{c.icon}</span>{c.name}
-              </span>
-              <div style={{textAlign:"right"}}>
-                <div style={{fontSize:13,fontWeight:800,color:pct>=100?"var(--rd)":pct>=80?"var(--yw)":"var(--tx)"}}>{fmt(c.total)}</div>
-                {c.bud>0&&<div style={{fontSize:10,color:"var(--mt)"}}>de {fmt(c.bud)}</div>}
-              </div>
-            </div>
-            <div style={{position:"relative",height:8,background:"rgba(255,255,255,.06)",borderRadius:10,overflow:"hidden"}}>
-              {c.bud>0&&<div style={{position:"absolute",left:`${Math.min((c.bud/cMax)*100,100)}%`,top:0,width:2,height:"100%",background:"rgba(255,255,255,.25)",zIndex:2}}/>}
-              <div style={{height:"100%",width:`${Math.min((c.total/cMax)*100,100)}%`,
-                background:pct>=100?"var(--rd)":pct>=80?"var(--yw)":c.color,borderRadius:10,transition:"width .6s ease"}}/>
-            </div>
-            {c.bud>0&&(
-              <div style={{display:"flex",justifyContent:"space-between",marginTop:4,fontSize:10,color:"var(--mt)"}}>
-                <span>{pct.toFixed(0)}% usado</span>
-                <span style={{color:c.bud>=c.total?"var(--gn)":"var(--rd)"}}>
-                  {c.bud>=c.total?`${fmt(c.bud-c.total)} disponible`:`${fmt(c.total-c.bud)} excedido`}
-                </span>
-              </div>
-            )}
-          </div>
+          React.createElement('div', { key: c.id, className: "card", style: {marginBottom:8}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 941}}
+            , React.createElement('div', { style: {display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:7}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 942}}
+              , React.createElement('span', { style: {fontSize:13,fontWeight:700,display:"flex",alignItems:"center",gap:6}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 943}}
+                , React.createElement('span', { style: {fontSize:18}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 944}}, c.icon), c.name
+              )
+              , React.createElement('div', { style: {textAlign:"right"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 946}}
+                , React.createElement('div', { style: {fontSize:13,fontWeight:800,color:pct>=100?"var(--rd)":pct>=80?"var(--yw)":"var(--tx)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 947}}, fmt(c.total))
+                , c.bud>0&&React.createElement('div', { style: {fontSize:10,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 948}}, "de " , fmt(c.bud))
+              )
+            )
+            , React.createElement('div', { style: {position:"relative",height:8,background:"rgba(255,255,255,.06)",borderRadius:10,overflow:"hidden"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 951}}
+              , c.bud>0&&React.createElement('div', { style: {position:"absolute",left:`${Math.min((c.bud/cMax)*100,100)}%`,top:0,width:2,height:"100%",background:"rgba(255,255,255,.25)",zIndex:2}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 952}})
+              , React.createElement('div', { style: {height:"100%",width:`${Math.min((c.total/cMax)*100,100)}%`,
+                background:pct>=100?"var(--rd)":pct>=80?"var(--yw)":c.color,borderRadius:10,transition:"width .6s ease"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 953}})
+            )
+            , c.bud>0&&(
+              React.createElement('div', { style: {display:"flex",justifyContent:"space-between",marginTop:4,fontSize:10,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 957}}
+                , React.createElement('span', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 958}}, pct.toFixed(0), "% usado" )
+                , React.createElement('span', { style: {color:c.bud>=c.total?"var(--gn)":"var(--rd)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 959}}
+                  , c.bud>=c.total?`${fmt(c.bud-c.total)} disponible`:`${fmt(c.total-c.bud)} excedido`
+                )
+              )
+            )
+          )
         );
-      })}
-    </div>
+      })
+    )
   );
 }
 
@@ -1040,159 +1039,159 @@ function Liquidaciones({entries,settlements,cfg,setCfg,onOpenSettle,onRemoveSett
   const nextDate   = addDays(currentP.end,1);
 
   return (
-    <div>
-      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}}>
-        <div>
-          <div style={{fontSize:13,fontWeight:700}}>Cada {cfg.intervalDays} días</div>
-          <div style={{fontSize:11,color:"var(--mt)"}}>Próxima: {fmtDate(nextDate)}</div>
-        </div>
-        <button onClick={()=>setShowCfg(true)} style={{padding:"7px 13px",background:"var(--bg3)",border:"1px solid var(--bd2)",
-          borderRadius:9,color:"var(--mt2)",fontSize:12,fontWeight:700,fontFamily:"inherit",cursor:"pointer"}}>
-          ⚙️ Configurar
-        </button>
-      </div>
+    React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1004}}
+      , React.createElement('div', { style: {display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:14}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1005}}
+        , React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1006}}
+          , React.createElement('div', { style: {fontSize:13,fontWeight:700}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1007}}, "Cada " , cfg.intervalDays, " días" )
+          , React.createElement('div', { style: {fontSize:11,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1008}}, "Próxima: " , fmtDate(nextDate))
+        )
+        , React.createElement('button', { onClick: ()=>setShowCfg(true), style: {padding:"7px 13px",background:"var(--bg3)",border:"1px solid var(--bd2)",
+          borderRadius:9,color:"var(--mt2)",fontSize:12,fontWeight:700,fontFamily:"inherit",cursor:"pointer"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1010}}, "⚙️ Configurar"
 
-      {/* PERIOD SELECTOR */}
-      <div className="sec"><span className="sec-t">Seleccionar Periodo</span></div>
-      {relevant.length===0&&<div className="empty"><div className="empty-ic">📅</div><div>Sin periodos con datos</div></div>}
-      <div style={{display:"flex",gap:7,overflowX:"auto",paddingBottom:8,WebkitOverflowScrolling:"touch",marginBottom:14}}>
-        {[...relevant].reverse().map(p=>{
+        )
+      )
+
+      /* PERIOD SELECTOR */
+      , React.createElement('div', { className: "sec", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1017}}, React.createElement('span', { className: "sec-t", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1017}}, "Seleccionar Periodo" ))
+      , relevant.length===0&&React.createElement('div', { className: "empty", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1018}}, React.createElement('div', { className: "empty-ic", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1018}}, "📅"), React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1018}}, "Sin periodos con datos"   ))
+      , React.createElement('div', { style: {display:"flex",gap:7,overflowX:"auto",paddingBottom:8,WebkitOverflowScrolling:"touch",marginBottom:14}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1019}}
+        , [...relevant].reverse().map(p=>{
           const pSett = settlements.some(s=>s.period.key===p.key);
           const pCurr = p.key===currentP.key;
           const pSettle = calcSettlement(getPeriodEntries(entries,p));
           const sel = p.key===selKey;
           return (
-            <div key={p.key} className="pch" onClick={()=>setSelKey(p.key)} style={{
+            React.createElement('div', { key: p.key, className: "pch", onClick: ()=>setSelKey(p.key), style: {
               background: sel?"rgba(79,124,255,.15)":"var(--bg2)",
               border: sel?"1px solid var(--ac)":"1px solid var(--bd)",
-            }}>
-              <div style={{display:"flex",alignItems:"center",gap:5,marginBottom:4}}>
-                <div style={{width:7,height:7,borderRadius:"50%",flexShrink:0,
-                  background:pSett?"var(--gn)":pCurr?"var(--yw)":"var(--mt)"}}/>
-                <span style={{fontSize:10,fontWeight:700,color:pSett?"var(--gn)":pCurr?"var(--yw)":"var(--mt)",textTransform:"uppercase",letterSpacing:.3}}>
-                  {pSett?"Liquidado":pCurr?"Actual":"Pasado"}
-                </span>
-              </div>
-              <div style={{fontSize:12,fontWeight:700,color:sel?"var(--ac)":"var(--tx)"}}>{p.label}</div>
-              {!pSett&&pSettle.total>0&&(
-                <div style={{fontSize:11,marginTop:3,color:pSettle.owes?"var(--yw)":"var(--gn)"}}>
-                  {pSettle.owes?`${pSettle.owes.from} debe ${fmt(pSettle.owes.amount)}`:"Cuadrados ✓"}
-                </div>
-              )}
-              {pSett&&<div style={{fontSize:11,marginTop:3,color:"var(--mt)"}}>{fmt(pSettle.total)}</div>}
-              {!pSett&&pSettle.total===0&&<div style={{fontSize:11,marginTop:3,color:"var(--mt)"}}>Sin gastos</div>}
-            </div>
+            }, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1026}}
+              , React.createElement('div', { style: {display:"flex",alignItems:"center",gap:5,marginBottom:4}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1030}}
+                , React.createElement('div', { style: {width:7,height:7,borderRadius:"50%",flexShrink:0,
+                  background:pSett?"var(--gn)":pCurr?"var(--yw)":"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1031}})
+                , React.createElement('span', { style: {fontSize:10,fontWeight:700,color:pSett?"var(--gn)":pCurr?"var(--yw)":"var(--mt)",textTransform:"uppercase",letterSpacing:.3}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1033}}
+                  , pSett?"Liquidado":pCurr?"Actual":"Pasado"
+                )
+              )
+              , React.createElement('div', { style: {fontSize:12,fontWeight:700,color:sel?"var(--ac)":"var(--tx)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1037}}, p.label)
+              , !pSett&&pSettle.total>0&&(
+                React.createElement('div', { style: {fontSize:11,marginTop:3,color:pSettle.owes?"var(--yw)":"var(--gn)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1039}}
+                  , pSettle.owes?`${pSettle.owes.from} debe ${fmt(pSettle.owes.amount)}`:"Cuadrados ✓"
+                )
+              )
+              , pSett&&React.createElement('div', { style: {fontSize:11,marginTop:3,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1043}}, fmt(pSettle.total))
+              , !pSett&&pSettle.total===0&&React.createElement('div', { style: {fontSize:11,marginTop:3,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1044}}, "Sin gastos" )
+            )
           );
-        })}
-      </div>
+        })
+      )
 
-      {/* SELECTED DETAIL */}
-      <div className="sec"><span className="sec-t">Detalle</span><span style={{fontSize:11,color:"var(--mt)"}}>{selPeriod.label}</span></div>
+      /* SELECTED DETAIL */
+      , React.createElement('div', { className: "sec", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1051}}, React.createElement('span', { className: "sec-t", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1051}}, "Detalle"), React.createElement('span', { style: {fontSize:11,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1051}}, selPeriod.label))
 
-      {isFuture?(
-        <div style={{background:"var(--bg2)",border:"1px solid var(--bd)",borderRadius:14,padding:20,textAlign:"center"}}>
-          <div style={{fontSize:28,marginBottom:8}}>📅</div>
-          <div style={{fontFamily:"Sora",fontSize:14,fontWeight:700}}>Periodo futuro</div>
-          <div style={{fontSize:12,color:"var(--mt)",marginTop:4}}>Comienza el {fmtDate(selPeriod.start)}</div>
-        </div>
+      , isFuture?(
+        React.createElement('div', { style: {background:"var(--bg2)",border:"1px solid var(--bd)",borderRadius:14,padding:20,textAlign:"center"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1054}}
+          , React.createElement('div', { style: {fontSize:28,marginBottom:8}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1055}}, "📅")
+          , React.createElement('div', { style: {fontFamily:"Sora",fontSize:14,fontWeight:700}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1056}}, "Periodo futuro" )
+          , React.createElement('div', { style: {fontSize:12,color:"var(--mt)",marginTop:4}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1057}}, "Comienza el "  , fmtDate(selPeriod.start))
+        )
       ):isSettled?(
-        <div>
-          <div style={{background:"rgba(34,197,94,.06)",border:"1px solid rgba(34,197,94,.2)",borderRadius:14,padding:16,marginBottom:12,textAlign:"center"}}>
-            <div style={{fontSize:26,marginBottom:5}}>✅</div>
-            <div style={{fontFamily:"Sora",fontSize:14,fontWeight:700}}>Periodo liquidado</div>
-            {(()=>{
+        React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1060}}
+          , React.createElement('div', { style: {background:"rgba(34,197,94,.06)",border:"1px solid rgba(34,197,94,.2)",borderRadius:14,padding:16,marginBottom:12,textAlign:"center"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1061}}
+            , React.createElement('div', { style: {fontSize:26,marginBottom:5}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1062}}, "✅")
+            , React.createElement('div', { style: {fontFamily:"Sora",fontSize:14,fontWeight:700}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1063}}, "Periodo liquidado" )
+            , (()=>{
               const rec=settlements.find(s=>s.period.key===selPeriod.key);
-              return rec?(<div style={{fontSize:12,color:"var(--mt)",marginTop:4}}>
-                {rec.settle.owes?`${rec.settle.owes.from} → ${rec.settle.owes.to} · ${fmt(rec.settle.owes.amount)}`:"Sin transferencia · cuadrados"}
-                <div style={{marginTop:2}}>Liquidado el {fmtDate(rec.date)}</div>
-              </div>):null;
-            })()}
-          </div>
-          <PeriodBreakdown gastos={pGastos} settle={settle}/>
-        </div>
+              return rec?(React.createElement('div', { style: {fontSize:12,color:"var(--mt)",marginTop:4}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1066}}
+                , rec.settle.owes?`${rec.settle.owes.from} → ${rec.settle.owes.to} · ${fmt(rec.settle.owes.amount)}`:"Sin transferencia · cuadrados"
+                , React.createElement('div', { style: {marginTop:2}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1068}}, "Liquidado el "  , fmtDate(rec.date))
+              )):null;
+            })()
+          )
+          , React.createElement(PeriodBreakdown, { gastos: pGastos, settle: settle, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1072}})
+        )
       ):(
-        <div>
-          <div className={`sc ${settle.owes?"owe":"bal"}`} style={{marginBottom:12}}>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
-              <div>
-                <div className={`sbdg ${settle.owes?"pe":"ok"}`}>{settle.owes?"⚡ Pendiente":"✓ Cuadrados"}</div>
-                <div className="ss" style={{fontSize:17}}>{settle.owes?`${settle.owes.from} debe ${fmt(settle.owes.amount)}`:"¡Están al día!"}</div>
-                {settle.owes&&<div className="su">→ a {settle.owes.to}</div>}
-              </div>
-              <div style={{textAlign:"right"}}>
-                <div style={{fontSize:10,color:"var(--mt)"}}>Total periodo</div>
-                <div style={{fontFamily:"Sora",fontSize:19,fontWeight:800}}>{fmt(settle.total)}</div>
-              </div>
-            </div>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:7,marginTop:12}}>
-              {[{p:"Diego",paid:settle.dPaid,bal:settle.dBal},{p:"Kelly",paid:settle.kPaid,bal:settle.kBal}].map(r=>(
-                <div key={r.p} style={{background:"rgba(255,255,255,.04)",borderRadius:10,padding:10}}>
-                  <div style={{fontSize:11,color:"var(--mt)",marginBottom:3}}><PBadge p={r.p}/></div>
-                  <div style={{fontFamily:"Sora",fontSize:15,fontWeight:800}}>{fmt(r.paid)}</div>
-                  <div style={{fontSize:10,marginTop:2,color:r.bal>0?"var(--gn)":r.bal<0?"var(--rd)":"var(--mt)"}}>
-                    {r.bal>0?`le deben ${fmt(r.bal)}`:r.bal<0?`debe ${fmt(Math.abs(r.bal))}`:"cuadrado ✓"}
-                  </div>
-                </div>
-              ))}
-            </div>
-            {settle.total>0&&(
-              <button onClick={()=>onOpenSettle(selPeriod)} className="btn btns" style={{marginTop:12}}>Liquidar Periodo →</button>
-            )}
-            {settle.total===0&&<div style={{fontSize:12,color:"var(--mt)",marginTop:12,textAlign:"center"}}>Sin gastos en este periodo</div>}
-          </div>
-          <PeriodBreakdown gastos={pGastos} settle={settle}/>
-        </div>
-      )}
+        React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1075}}
+          , React.createElement('div', { className: `sc ${settle.owes?"owe":"bal"}`, style: {marginBottom:12}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1076}}
+            , React.createElement('div', { style: {display:"flex",justifyContent:"space-between",alignItems:"flex-start"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1077}}
+              , React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1078}}
+                , React.createElement('div', { className: `sbdg ${settle.owes?"pe":"ok"}`, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1079}}, settle.owes?"⚡ Pendiente":"✓ Cuadrados")
+                , React.createElement('div', { className: "ss", style: {fontSize:17}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1080}}, settle.owes?`${settle.owes.from} debe ${fmt(settle.owes.amount)}`:"¡Están al día!")
+                , settle.owes&&React.createElement('div', { className: "su", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1081}}, "→ a "  , settle.owes.to)
+              )
+              , React.createElement('div', { style: {textAlign:"right"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1083}}
+                , React.createElement('div', { style: {fontSize:10,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1084}}, "Total periodo" )
+                , React.createElement('div', { style: {fontFamily:"Sora",fontSize:19,fontWeight:800}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1085}}, fmt(settle.total))
+              )
+            )
+            , React.createElement('div', { style: {display:"grid",gridTemplateColumns:"1fr 1fr",gap:7,marginTop:12}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1088}}
+              , [{p:"Diego",paid:settle.dPaid,bal:settle.dBal},{p:"Kelly",paid:settle.kPaid,bal:settle.kBal}].map(r=>(
+                React.createElement('div', { key: r.p, style: {background:"rgba(255,255,255,.04)",borderRadius:10,padding:10}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1090}}
+                  , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginBottom:3}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1091}}, React.createElement(PBadge, { p: r.p, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1091}}))
+                  , React.createElement('div', { style: {fontFamily:"Sora",fontSize:15,fontWeight:800}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1092}}, fmt(r.paid))
+                  , React.createElement('div', { style: {fontSize:10,marginTop:2,color:r.bal>0?"var(--gn)":r.bal<0?"var(--rd)":"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1093}}
+                    , r.bal>0?`le deben ${fmt(r.bal)}`:r.bal<0?`debe ${fmt(Math.abs(r.bal))}`:"cuadrado ✓"
+                  )
+                )
+              ))
+            )
+            , settle.total>0&&(
+              React.createElement('button', { onClick: ()=>onOpenSettle(selPeriod), className: "btn btns" , style: {marginTop:12}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1100}}, "Liquidar Periodo →"  )
+            )
+            , settle.total===0&&React.createElement('div', { style: {fontSize:12,color:"var(--mt)",marginTop:12,textAlign:"center"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1102}}, "Sin gastos en este periodo"    )
+          )
+          , React.createElement(PeriodBreakdown, { gastos: pGastos, settle: settle, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1104}})
+        )
+      )
 
-      {/* HISTORY */}
-      <div className="sec"><span className="sec-t">Historial</span></div>
-      {settlements.length===0&&<div className="empty"><div className="empty-ic">📋</div><div>Sin liquidaciones aún</div></div>}
-      {[...settlements].reverse().map((s,i)=>(
-        <div key={i} className="sli">
-          <div>
-            <div style={{fontSize:13,fontWeight:700}}>{s.period.label}</div>
-            <div style={{fontSize:11,color:"var(--mt)",marginTop:2}}>
-              {s.settle.owes?`${s.settle.owes.from} → ${s.settle.owes.to} · ${fmt(s.settle.owes.amount)}`:"Sin transferencia · cuadrados"}
-            </div>
-            <div style={{fontSize:10,color:"var(--mt)",marginTop:2}}>Liquidado el {fmtDate(s.date)}</div>
-          </div>
-          <div style={{textAlign:"right"}}>
-            <div style={{fontSize:14,fontWeight:800,color:"var(--ac)"}}>{fmt(s.settle.total)}</div>
-            <button onClick={()=>onRemoveSett(settlements.length-1-i)} style={{fontSize:10,color:"var(--rd)",background:"none",border:"none",cursor:"pointer",marginTop:5,display:"block"}}>eliminar</button>
-          </div>
-        </div>
-      ))}
-      {showCfg&&<SettleCfgSheet cfg={cfg} onChange={setCfg} onClose={()=>setShowCfg(false)}/>}
-    </div>
+      /* HISTORY */
+      , React.createElement('div', { className: "sec", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1109}}, React.createElement('span', { className: "sec-t", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1109}}, "Historial"))
+      , settlements.length===0&&React.createElement('div', { className: "empty", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1110}}, React.createElement('div', { className: "empty-ic", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1110}}, "📋"), React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1110}}, "Sin liquidaciones aún"  ))
+      , [...settlements].reverse().map((s,i)=>(
+        React.createElement('div', { key: i, className: "sli", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1112}}
+          , React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1113}}
+            , React.createElement('div', { style: {fontSize:13,fontWeight:700}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1114}}, s.period.label)
+            , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginTop:2}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1115}}
+              , s.settle.owes?`${s.settle.owes.from} → ${s.settle.owes.to} · ${fmt(s.settle.owes.amount)}`:"Sin transferencia · cuadrados"
+            )
+            , React.createElement('div', { style: {fontSize:10,color:"var(--mt)",marginTop:2}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1118}}, "Liquidado el "  , fmtDate(s.date))
+          )
+          , React.createElement('div', { style: {textAlign:"right"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1120}}
+            , React.createElement('div', { style: {fontSize:14,fontWeight:800,color:"var(--ac)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1121}}, fmt(s.settle.total))
+            , React.createElement('button', { onClick: ()=>onRemoveSett(settlements.length-1-i), style: {fontSize:10,color:"var(--rd)",background:"none",border:"none",cursor:"pointer",marginTop:5,display:"block"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1122}}, "eliminar")
+          )
+        )
+      ))
+      , showCfg&&React.createElement(SettleCfgSheet, { cfg: cfg, onChange: setCfg, onClose: ()=>setShowCfg(false), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1126}})
+    )
   );
 }
 
 function PeriodBreakdown({gastos,settle}){
-  if(gastos.length===0) return <div className="empty" style={{paddingTop:16}}><div className="empty-ic">🧾</div><div>Sin gastos en este periodo</div></div>;
+  if(gastos.length===0) return React.createElement('div', { className: "empty", style: {paddingTop:16}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1132}}, React.createElement('div', { className: "empty-ic", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1132}}, "🧾"), React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1132}}, "Sin gastos en este periodo"    ));
   return (
-    <div className="card">
-      <div style={{fontSize:11,color:"var(--mt)",fontWeight:700,textTransform:"uppercase",letterSpacing:.4,marginBottom:10}}>
-        {gastos.length} gastos · {fmt(settle.total)}
-      </div>
-      {gastos.map(e=>{
+    React.createElement('div', { className: "card", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1134}}
+      , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",fontWeight:700,textTransform:"uppercase",letterSpacing:.4,marginBottom:10}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1135}}
+        , gastos.length, " gastos · "   , fmt(settle.total)
+      )
+      , gastos.map(e=>{
         const cat=getCat(e.category_id,CATEGORIES);
         const dS=e.person==="Compartido"?e.amount/2:e.person==="Diego"?e.amount:0;
         const kS=e.person==="Compartido"?e.amount/2:e.person==="Kelly"?e.amount:0;
         return (
-          <div key={e.id} style={{display:"flex",alignItems:"center",gap:9,padding:"8px 0",borderBottom:"1px solid var(--bd)"}}>
-            <span style={{fontSize:15}}>{cat.icon}</span>
-            <div style={{flex:1}}>
-              <div style={{fontSize:12,fontWeight:600}}>{cat.name}{e.note?` · ${e.note}`:""}</div>
-              <div style={{fontSize:11,color:"var(--mt)",marginTop:1,display:"flex",gap:5,flexWrap:"wrap"}}>
-                <PBadge p={e.person}/><span>· {fmtDate(e.entry_date)}</span>
-                {e.person==="Compartido"&&<span style={{color:"var(--mt2)"}}>D:{fmt(dS)} / K:{fmt(kS)}</span>}
-              </div>
-            </div>
-            <span style={{fontSize:12,fontWeight:700,color:"var(--rd)"}}>{fmt(e.amount)}</span>
-          </div>
+          React.createElement('div', { key: e.id, style: {display:"flex",alignItems:"center",gap:9,padding:"8px 0",borderBottom:"1px solid var(--bd)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1143}}
+            , React.createElement('span', { style: {fontSize:15}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1144}}, cat.icon)
+            , React.createElement('div', { style: {flex:1}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1145}}
+              , React.createElement('div', { style: {fontSize:12,fontWeight:600}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1146}}, cat.name, e.note?` · ${e.note}`:"")
+              , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginTop:1,display:"flex",gap:5,flexWrap:"wrap"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1147}}
+                , React.createElement(PBadge, { p: e.person, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1148}}), React.createElement('span', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1148}}, "· " , fmtDate(e.entry_date))
+                , e.person==="Compartido"&&React.createElement('span', { style: {color:"var(--mt2)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1149}}, "D:", fmt(dS), " / K:"  , fmt(kS))
+              )
+            )
+            , React.createElement('span', { style: {fontSize:12,fontWeight:700,color:"var(--rd)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1152}}, fmt(e.amount))
+          )
         );
-      })}
-    </div>
+      })
+    )
   );
 }
 
@@ -1216,56 +1215,56 @@ function History({entries,cats,onEdit,onDelete,sel,setSel,months}){
   }).sort((a,b)=>b.entry_date.localeCompare(a.entry_date)),[entries,fP,fT,fC,sel]);
 
   return (
-    <div>
-      <MonthBar months={months} sel={sel} onChange={setSel}/>
-      <div className="flt">
-        {["Todos","Diego","Kelly","Compartido"].map(p=>(
-          <div key={p} className={`fc${fP===p?" on":""}`} onClick={()=>setFP(p)}>{p}</div>
-        ))}
-      </div>
-      <div className="flt">
-        {[["Todos","Todos"],["gasto","💸 Gastos"],["ahorro","💰 Ahorros/Retiros"]].map(([k,l])=>(
-          <div key={k} className={`fc${fT===k?" on":""}`} onClick={()=>setFT(k)}>{l}</div>
-        ))}
-      </div>
-      <div className="flt">
-        <div className={`fc${fC==="Todas"?" on":""}`} onClick={()=>setFC("Todas")}>Todas</div>
-        {cats.map(c=><div key={c.id} className={`fc${fC===c.id?" on":""}`} onClick={()=>setFC(c.id)}>{c.icon} {c.name}</div>)}
-      </div>
-      <div style={{fontSize:12,color:"var(--mt)",marginBottom:10,fontWeight:600}}>{filtered.length} movimientos</div>
-      {filtered.length===0&&<div className="empty"><div className="empty-ic">🔍</div><div>Sin movimientos</div></div>}
-      {filtered.map(e=>{
+    React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1180}}
+      , React.createElement(MonthBar, { months: months, sel: sel, onChange: setSel, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1181}})
+      , React.createElement('div', { className: "flt", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1182}}
+        , ["Todos","Diego","Kelly","Compartido"].map(p=>(
+          React.createElement('div', { key: p, className: `fc${fP===p?" on":""}`, onClick: ()=>setFP(p), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1184}}, p)
+        ))
+      )
+      , React.createElement('div', { className: "flt", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1187}}
+        , [["Todos","Todos"],["gasto","💸 Gastos"],["ahorro","💰 Ahorros/Retiros"]].map(([k,l])=>(
+          React.createElement('div', { key: k, className: `fc${fT===k?" on":""}`, onClick: ()=>setFT(k), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1189}}, l)
+        ))
+      )
+      , React.createElement('div', { className: "flt", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1192}}
+        , React.createElement('div', { className: `fc${fC==="Todas"?" on":""}`, onClick: ()=>setFC("Todas"), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1193}}, "Todas")
+        , cats.map(c=>React.createElement('div', { key: c.id, className: `fc${fC===c.id?" on":""}`, onClick: ()=>setFC(c.id), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1194}}, c.icon, " " , c.name))
+      )
+      , React.createElement('div', { style: {fontSize:12,color:"var(--mt)",marginBottom:10,fontWeight:600}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1196}}, filtered.length, " movimientos" )
+      , filtered.length===0&&React.createElement('div', { className: "empty", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1197}}, React.createElement('div', { className: "empty-ic", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1197}}, "🔍"), React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1197}}, "Sin movimientos" ))
+      , filtered.map(e=>{
         const cat=getCat(e.category_id,cats);
         const isRet=e.type==="retiro";
         const open=exp===e.id;
         return (
-          <div key={e.id}>
-            <div className="er" onClick={()=>setExp(open?null:e.id)}>
-              <div className="ei" style={{background:isRet?"rgba(244,63,94,.12)":cat.color+"22"}}>{cat.icon}</div>
-              <div className="en">
-                <div className="enm">
-                  {cat.name}
-                  {isRet&&<span style={{fontSize:10,background:"rgba(244,63,94,.15)",color:"#f87171",borderRadius:5,padding:"1px 5px",fontWeight:700,marginLeft:5}}>RETIRO</span>}
-                  {e.note?` · ${e.note}`:""}
-                </div>
-                <div className="emt">
-                  <PBadge p={e.person}/>
-                  {e.person==="Compartido"&&<span style={{fontSize:10,color:"var(--mt)"}}>50/50</span>}
-                  <span>· {fmtDate(e.entry_date)}</span>
-                </div>
-              </div>
-              <div className={`eam ${e.type}`}>{e.type==="gasto"?"-":"+"}{fmt(e.amount)}</div>
-            </div>
-            {open&&(
-              <div className="ar">
-                {!isRet&&<button className="ab" onClick={()=>{onEdit(e);setExp(null)}}>✏️ Editar</button>}
-                <button className="ab del" onClick={()=>{onDelete(e.id);setExp(null)}}>🗑️ Eliminar</button>
-              </div>
-            )}
-          </div>
+          React.createElement('div', { key: e.id, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1203}}
+            , React.createElement('div', { className: "er", onClick: ()=>setExp(open?null:e.id), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1204}}
+              , React.createElement('div', { className: "ei", style: {background:isRet?"rgba(244,63,94,.12)":cat.color+"22"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1205}}, cat.icon)
+              , React.createElement('div', { className: "en", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1206}}
+                , React.createElement('div', { className: "enm", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1207}}
+                  , cat.name
+                  , isRet&&React.createElement('span', { style: {fontSize:10,background:"rgba(244,63,94,.15)",color:"#f87171",borderRadius:5,padding:"1px 5px",fontWeight:700,marginLeft:5}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1209}}, "RETIRO")
+                  , e.note?` · ${e.note}`:""
+                )
+                , React.createElement('div', { className: "emt", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1212}}
+                  , React.createElement(PBadge, { p: e.person, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1213}})
+                  , e.person==="Compartido"&&React.createElement('span', { style: {fontSize:10,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1214}}, "50/50")
+                  , React.createElement('span', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1215}}, "· " , fmtDate(e.entry_date))
+                )
+              )
+              , React.createElement('div', { className: `eam ${e.type}`, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1218}}, e.type==="gasto"?"-":"+", fmt(e.amount))
+            )
+            , open&&(
+              React.createElement('div', { className: "ar", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1221}}
+                , !isRet&&React.createElement('button', { className: "ab", onClick: ()=>{onEdit(e);setExp(null)}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1222}}, "✏️ Editar" )
+                , React.createElement('button', { className: "ab del" , onClick: ()=>{onDelete(e.id);setExp(null)}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1223}}, "🗑️ Eliminar" )
+              )
+            )
+          )
         );
-      })}
-    </div>
+      })
+    )
   );
 }
 
@@ -1305,112 +1304,112 @@ function Savings({entries,cats,onSaveEntry,sel,setSel,months}){
     .sort((a,b)=>b.entry_date.localeCompare(a.entry_date));
 
   return (
-    <div>
-      <MonthBar months={months} sel={sel} onChange={setSel}/>
-      <div className="savh">
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
-          <div>
-            <div className="hl">Saldo Total Ahorrado</div>
-            <div style={{fontFamily:"Sora",fontSize:34,fontWeight:800,color:net>=0?"var(--gn)":"var(--rd)",lineHeight:1}}>{fmt(net)}</div>
-            <div style={{fontSize:11,color:"var(--mt)",marginTop:4}}>
-              {fmt(allSav.reduce((s,e)=>s+e.amount,0))} ahorrado · {fmt(allRet.reduce((s,e)=>s+e.amount,0))} retirado
-            </div>
-          </div>
-          <button onClick={()=>setShowW(true)} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:3,
+    React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1269}}
+      , React.createElement(MonthBar, { months: months, sel: sel, onChange: setSel, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1270}})
+      , React.createElement('div', { className: "savh", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1271}}
+        , React.createElement('div', { style: {display:"flex",justifyContent:"space-between",alignItems:"flex-start"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1272}}
+          , React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1273}}
+            , React.createElement('div', { className: "hl", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1274}}, "Saldo Total Ahorrado"  )
+            , React.createElement('div', { style: {fontFamily:"Sora",fontSize:34,fontWeight:800,color:net>=0?"var(--gn)":"var(--rd)",lineHeight:1}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1275}}, fmt(net))
+            , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginTop:4}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1276}}
+              , fmt(allSav.reduce((s,e)=>s+e.amount,0)), " ahorrado · "   , fmt(allRet.reduce((s,e)=>s+e.amount,0)), " retirado"
+            )
+          )
+          , React.createElement('button', { onClick: ()=>setShowW(true), style: {display:"flex",flexDirection:"column",alignItems:"center",gap:3,
             background:"rgba(244,63,94,.12)",border:"1px solid rgba(244,63,94,.25)",
-            borderRadius:12,padding:"10px 14px",cursor:"pointer",flexShrink:0}}>
-            <span style={{fontSize:20}}>📤</span>
-            <span style={{fontSize:10,fontWeight:700,color:"#f87171"}}>Retirar</span>
-          </button>
-        </div>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:7,marginTop:14}}>
-          {byP.map(x=>(
-            <div key={x.p} style={{textAlign:"center",background:"rgba(255,255,255,.04)",borderRadius:10,padding:9}}>
-              <PBadge p={x.p}/>
-              <div style={{fontFamily:"Sora",fontSize:16,fontWeight:800,color:x.net>=0?"var(--gn)":"var(--rd)",marginTop:5}}>{fmt(x.net)}</div>
-              {x.withdrew>0&&<div style={{fontSize:9,color:"var(--rd)",marginTop:2}}>-{fmt(x.withdrew)}</div>}
-            </div>
-          ))}
-        </div>
-      </div>
+            borderRadius:12,padding:"10px 14px",cursor:"pointer",flexShrink:0}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1280}}
+            , React.createElement('span', { style: {fontSize:20}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1283}}, "📤")
+            , React.createElement('span', { style: {fontSize:10,fontWeight:700,color:"#f87171"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1284}}, "Retirar")
+          )
+        )
+        , React.createElement('div', { style: {display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:7,marginTop:14}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1287}}
+          , byP.map(x=>(
+            React.createElement('div', { key: x.p, style: {textAlign:"center",background:"rgba(255,255,255,.04)",borderRadius:10,padding:9}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1289}}
+              , React.createElement(PBadge, { p: x.p, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1290}})
+              , React.createElement('div', { style: {fontFamily:"Sora",fontSize:16,fontWeight:800,color:x.net>=0?"var(--gn)":"var(--rd)",marginTop:5}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1291}}, fmt(x.net))
+              , x.withdrew>0&&React.createElement('div', { style: {fontSize:9,color:"var(--rd)",marginTop:2}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1292}}, "-", fmt(x.withdrew))
+            )
+          ))
+        )
+      )
 
-      {sel!=="all"&&(
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:9,marginBottom:12}}>
-          <div className="csm" style={{textAlign:"center"}}>
-            <div style={{fontSize:11,color:"var(--mt)",marginBottom:4}}>💰 Ahorrado</div>
-            <div style={{fontFamily:"Sora",fontSize:20,fontWeight:800,color:"var(--gn)"}}>{fmt(mSav.reduce((s,e)=>s+e.amount,0))}</div>
-          </div>
-          <div className="csm" style={{textAlign:"center"}}>
-            <div style={{fontSize:11,color:"var(--mt)",marginBottom:4}}>📤 Retirado</div>
-            <div style={{fontFamily:"Sora",fontSize:20,fontWeight:800,color:"var(--rd)"}}>{fmt(mRet.reduce((s,e)=>s+e.amount,0))}</div>
-          </div>
-        </div>
-      )}
+      , sel!=="all"&&(
+        React.createElement('div', { style: {display:"grid",gridTemplateColumns:"1fr 1fr",gap:9,marginBottom:12}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1299}}
+          , React.createElement('div', { className: "csm", style: {textAlign:"center"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1300}}
+            , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginBottom:4}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1301}}, "💰 Ahorrado" )
+            , React.createElement('div', { style: {fontFamily:"Sora",fontSize:20,fontWeight:800,color:"var(--gn)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1302}}, fmt(mSav.reduce((s,e)=>s+e.amount,0)))
+          )
+          , React.createElement('div', { className: "csm", style: {textAlign:"center"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1304}}
+            , React.createElement('div', { style: {fontSize:11,color:"var(--mt)",marginBottom:4}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1305}}, "📤 Retirado" )
+            , React.createElement('div', { style: {fontFamily:"Sora",fontSize:20,fontWeight:800,color:"var(--rd)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1306}}, fmt(mRet.reduce((s,e)=>s+e.amount,0)))
+          )
+        )
+      )
 
-      <div className="sec"><span className="sec-t">Por Categoría</span><span style={{fontSize:11,color:"var(--mt)"}}>acumulado</span></div>
-      {byCat.length===0&&<div className="empty"><div className="empty-ic">💰</div><div>Sin ahorros aún</div></div>}
-      {byCat.map(c=>(
-        <div key={c.id} className="card" style={{marginBottom:8,cursor:"pointer"}} onClick={()=>setOnlyCat(onlyCat===c.id?"Todas":c.id)}>
-          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}>
-            <span style={{fontSize:14,fontWeight:600,display:"flex",alignItems:"center",gap:6}}>
-              <span style={{fontSize:20}}>{c.icon}</span>{c.name}
-              {onlyCat===c.id&&<span style={{fontSize:10,color:"var(--ac)",background:"rgba(79,124,255,.12)",borderRadius:6,padding:"1px 6px"}}>filtrado</span>}
-            </span>
-            <div style={{textAlign:"right"}}>
-              <div style={{fontFamily:"Sora",fontSize:16,fontWeight:800,color:c.net>=0?"var(--gn)":"var(--rd)"}}>{fmt(c.net)}</div>
-              {c.withdrew>0&&<div style={{fontSize:10,color:"var(--rd)"}}>-{fmt(c.withdrew)}</div>}
-            </div>
-          </div>
-          <div style={{display:"flex",flexDirection:"column",gap:3}}>
-            {[{lbl:"Ahorrado",v:c.saved,col:"var(--gn)"},{lbl:"Retirado",v:c.withdrew,col:"var(--rd)"}].filter(r=>r.v>0).map(r=>(
-              <div key={r.lbl} style={{display:"flex",alignItems:"center",gap:6}}>
-                <span style={{fontSize:10,color:"var(--mt)",width:50}}>{r.lbl}</span>
-                <div style={{flex:1,height:6,background:"rgba(255,255,255,.07)",borderRadius:10,overflow:"hidden"}}>
-                  <div style={{height:"100%",width:`${(r.v/cMax)*100}%`,background:r.col,borderRadius:10}}/>
-                </div>
-                <span style={{fontSize:10,color:r.col,fontWeight:700,width:46,textAlign:"right"}}>{fmt(r.v)}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
+      , React.createElement('div', { className: "sec", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1311}}, React.createElement('span', { className: "sec-t", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1311}}, "Por Categoría" ), React.createElement('span', { style: {fontSize:11,color:"var(--mt)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1311}}, "acumulado"))
+      , byCat.length===0&&React.createElement('div', { className: "empty", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1312}}, React.createElement('div', { className: "empty-ic", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1312}}, "💰"), React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1312}}, "Sin ahorros aún"  ))
+      , byCat.map(c=>(
+        React.createElement('div', { key: c.id, className: "card", style: {marginBottom:8,cursor:"pointer"}, onClick: ()=>setOnlyCat(onlyCat===c.id?"Todas":c.id), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1314}}
+          , React.createElement('div', { style: {display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1315}}
+            , React.createElement('span', { style: {fontSize:14,fontWeight:600,display:"flex",alignItems:"center",gap:6}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1316}}
+              , React.createElement('span', { style: {fontSize:20}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1317}}, c.icon), c.name
+              , onlyCat===c.id&&React.createElement('span', { style: {fontSize:10,color:"var(--ac)",background:"rgba(79,124,255,.12)",borderRadius:6,padding:"1px 6px"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1318}}, "filtrado")
+            )
+            , React.createElement('div', { style: {textAlign:"right"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1320}}
+              , React.createElement('div', { style: {fontFamily:"Sora",fontSize:16,fontWeight:800,color:c.net>=0?"var(--gn)":"var(--rd)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1321}}, fmt(c.net))
+              , c.withdrew>0&&React.createElement('div', { style: {fontSize:10,color:"var(--rd)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1322}}, "-", fmt(c.withdrew))
+            )
+          )
+          , React.createElement('div', { style: {display:"flex",flexDirection:"column",gap:3}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1325}}
+            , [{lbl:"Ahorrado",v:c.saved,col:"var(--gn)"},{lbl:"Retirado",v:c.withdrew,col:"var(--rd)"}].filter(r=>r.v>0).map(r=>(
+              React.createElement('div', { key: r.lbl, style: {display:"flex",alignItems:"center",gap:6}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1327}}
+                , React.createElement('span', { style: {fontSize:10,color:"var(--mt)",width:50}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1328}}, r.lbl)
+                , React.createElement('div', { style: {flex:1,height:6,background:"rgba(255,255,255,.07)",borderRadius:10,overflow:"hidden"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1329}}
+                  , React.createElement('div', { style: {height:"100%",width:`${(r.v/cMax)*100}%`,background:r.col,borderRadius:10}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1330}})
+                )
+                , React.createElement('span', { style: {fontSize:10,color:r.col,fontWeight:700,width:46,textAlign:"right"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1332}}, fmt(r.v))
+              )
+            ))
+          )
+        )
+      ))
 
-      <div className="sec">
-        <span className="sec-t">Movimientos</span>
-        {onlyCat!=="Todas"&&<span className="sec-a" onClick={()=>setOnlyCat("Todas")}>Ver todos ✕</span>}
-      </div>
-      <div className="flt">
-        <div className={`fc${onlyCat==="Todas"?" on":""}`} onClick={()=>setOnlyCat("Todas")}>Todas</div>
-        {byCat.map(c=><div key={c.id} className={`fc${onlyCat===c.id?" on":""}`} onClick={()=>setOnlyCat(c.id)}>{c.icon} {c.name}</div>)}
-      </div>
-      {activity.length===0&&<div className="empty"><div className="empty-ic">🔍</div><div>Sin movimientos</div></div>}
-      {activity.map(e=>{
+      , React.createElement('div', { className: "sec", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1339}}
+        , React.createElement('span', { className: "sec-t", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1340}}, "Movimientos")
+        , onlyCat!=="Todas"&&React.createElement('span', { className: "sec-a", onClick: ()=>setOnlyCat("Todas"), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1341}}, "Ver todos ✕"  )
+      )
+      , React.createElement('div', { className: "flt", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1343}}
+        , React.createElement('div', { className: `fc${onlyCat==="Todas"?" on":""}`, onClick: ()=>setOnlyCat("Todas"), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1344}}, "Todas")
+        , byCat.map(c=>React.createElement('div', { key: c.id, className: `fc${onlyCat===c.id?" on":""}`, onClick: ()=>setOnlyCat(c.id), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1345}}, c.icon, " " , c.name))
+      )
+      , activity.length===0&&React.createElement('div', { className: "empty", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1347}}, React.createElement('div', { className: "empty-ic", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1347}}, "🔍"), React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1347}}, "Sin movimientos" ))
+      , activity.map(e=>{
         const cat=getCat(e.category_id,cats);
         const isRet=e.type==="retiro";
         const open=expId===e.id;
         return (
-          <div key={e.id}>
-            <div className="er" onClick={()=>setExpId(open?null:e.id)}>
-              <div className="ei" style={{background:isRet?"rgba(244,63,94,.12)":cat.color+"22",position:"relative"}}>
-                {cat.icon}
-                {isRet&&<span style={{position:"absolute",bottom:-3,right:-3,fontSize:10}}>📤</span>}
-              </div>
-              <div className="en">
-                <div className="enm">
-                  {cat.name}
-                  {isRet&&<span style={{fontSize:10,background:"rgba(244,63,94,.15)",color:"#f87171",borderRadius:5,padding:"1px 5px",fontWeight:700,marginLeft:5}}>RETIRO</span>}
-                  {e.note?` · ${e.note}`:""}
-                </div>
-                <div className="emt"><PBadge p={e.person}/> · {fmtDate(e.entry_date)}</div>
-              </div>
-              <div className="eam" style={{color:isRet?"var(--rd)":"var(--gn)"}}>{isRet?"-":"+"}{fmt(e.amount)}</div>
-            </div>
-            {open&&<div className="ar"><button className="ab del" onClick={()=>{onSaveEntry(null,e.id);setExpId(null)}}>🗑️ Eliminar</button></div>}
-          </div>
+          React.createElement('div', { key: e.id, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1353}}
+            , React.createElement('div', { className: "er", onClick: ()=>setExpId(open?null:e.id), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1354}}
+              , React.createElement('div', { className: "ei", style: {background:isRet?"rgba(244,63,94,.12)":cat.color+"22",position:"relative"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1355}}
+                , cat.icon
+                , isRet&&React.createElement('span', { style: {position:"absolute",bottom:-3,right:-3,fontSize:10}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1357}}, "📤")
+              )
+              , React.createElement('div', { className: "en", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1359}}
+                , React.createElement('div', { className: "enm", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1360}}
+                  , cat.name
+                  , isRet&&React.createElement('span', { style: {fontSize:10,background:"rgba(244,63,94,.15)",color:"#f87171",borderRadius:5,padding:"1px 5px",fontWeight:700,marginLeft:5}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1362}}, "RETIRO")
+                  , e.note?` · ${e.note}`:""
+                )
+                , React.createElement('div', { className: "emt", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1365}}, React.createElement(PBadge, { p: e.person, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1365}}), " · "  , fmtDate(e.entry_date))
+              )
+              , React.createElement('div', { className: "eam", style: {color:isRet?"var(--rd)":"var(--gn)"}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1367}}, isRet?"-":"+", fmt(e.amount))
+            )
+            , open&&React.createElement('div', { className: "ar", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1369}}, React.createElement('button', { className: "ab del" , onClick: ()=>{onSaveEntry(null,e.id);setExpId(null)}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1369}}, "🗑️ Eliminar" ))
+          )
         );
-      })}
-      {showW&&<WithdrawSheet cats={cats} onClose={()=>setShowW(false)} onSave={e=>{onSaveEntry(e);setShowW(false);}}/>}
-    </div>
+      })
+      , showW&&React.createElement(WithdrawSheet, { cats: cats, onClose: ()=>setShowW(false), onSave: e=>{onSaveEntry(e);setShowW(false);}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1373}})
+    )
   );
 }
 
@@ -1474,54 +1473,54 @@ export default function App(){
   const sp = {sel,setSel,months};
 
   return (
-    <div className="app">
-      <div className="hdr">
-        <div>
-          <div className="hdr-t">{TITLES[tab].t}</div>
-          <div className="hdr-s">{TITLES[tab].s}</div>
-        </div>
-        <div style={{width:38,height:38,background:"var(--ag)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",fontSize:17}}>💎</div>
-      </div>
+    React.createElement('div', { className: "app", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1438}}
+      , React.createElement('div', { className: "hdr", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1439}}
+        , React.createElement('div', {__self: this, __source: {fileName: _jsxFileName, lineNumber: 1440}}
+          , React.createElement('div', { className: "hdr-t", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1441}}, TITLES[tab].t)
+          , React.createElement('div', { className: "hdr-s", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1442}}, TITLES[tab].s)
+        )
+        , React.createElement('div', { style: {width:38,height:38,background:"var(--ag)",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",fontSize:17}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1444}}, "💎")
+      )
 
-      <div className="body">
-        {tab==="dashboard"&&<Dashboard entries={entries} budget={budget} cats={cats} settlements={setts} cfg={cfg}
-          onOpenSettle={()=>{setSelP(period);setShowS(true);}} {...sp}/>}
-        {tab==="trends"   &&<Trends    entries={entries} cats={cats} budget={budget} {...sp}/>}
-        {tab==="liquidar" &&<Liquidaciones entries={entries} settlements={setts} cfg={cfg} setCfg={setCfg}
-          onOpenSettle={p=>{setSelP(p);setShowS(true);}} onRemoveSett={handleRemSett}/>}
-        {tab==="ahorros"  &&<Savings   entries={entries} cats={cats} onSaveEntry={handleSave} {...sp}/>}
-        {tab==="historial"&&<History   entries={entries} cats={cats} onEdit={setEdit} onDelete={handleDel} {...sp}/>}
-      </div>
+      , React.createElement('div', { className: "body", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1447}}
+        , tab==="dashboard"&&React.createElement(Dashboard, { entries: entries, budget: budget, cats: cats, settlements: setts, cfg: cfg,
+          onOpenSettle: ()=>{setSelP(period);setShowS(true);}, ...sp, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1448}})
+        , tab==="trends"   &&React.createElement(Trends, {    entries: entries, cats: cats, budget: budget, ...sp, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1450}})
+        , tab==="liquidar" &&React.createElement(Liquidaciones, { entries: entries, settlements: setts, cfg: cfg, setCfg: setCfg,
+          onOpenSettle: p=>{setSelP(p);setShowS(true);}, onRemoveSett: handleRemSett, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1451}})
+        , tab==="ahorros"  &&React.createElement(Savings, {   entries: entries, cats: cats, onSaveEntry: handleSave, ...sp, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1453}})
+        , tab==="historial"&&React.createElement(History, {   entries: entries, cats: cats, onEdit: setEdit, onDelete: handleDel, ...sp, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1454}})
+      )
 
-      <div className="nav">
-        {TABS.slice(0,2).map(t=>(
-          <div key={t.id} className={`ni${tab===t.id?" on":""}`} onClick={()=>setTab(t.id)}>
-            <span className="ni-ic">{t.icon}</span><span className="ni-lb">{t.label}</span>
-          </div>
-        ))}
-        <div style={{display:"flex",flexDirection:"column",alignItems:"center",flex:1}}>
-          <div className="nav-add" onClick={()=>setAdd(true)}>＋</div>
-        </div>
-        {TABS.slice(2).map(t=>(
-          <div key={t.id} className={`ni${tab===t.id?" on":""}`} onClick={()=>setTab(t.id)}>
-            <span className="ni-ic">{t.icon}</span><span className="ni-lb">{t.label}</span>
-          </div>
-        ))}
-      </div>
+      , React.createElement('div', { className: "nav", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1457}}
+        , TABS.slice(0,2).map(t=>(
+          React.createElement('div', { key: t.id, className: `ni${tab===t.id?" on":""}`, onClick: ()=>setTab(t.id), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1459}}
+            , React.createElement('span', { className: "ni-ic", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1460}}, t.icon), React.createElement('span', { className: "ni-lb", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1460}}, t.label)
+          )
+        ))
+        , React.createElement('div', { style: {display:"flex",flexDirection:"column",alignItems:"center",flex:1}, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1463}}
+          , React.createElement('div', { className: "nav-add", onClick: ()=>setAdd(true), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1464}}, "＋")
+        )
+        , TABS.slice(2).map(t=>(
+          React.createElement('div', { key: t.id, className: `ni${tab===t.id?" on":""}`, onClick: ()=>setTab(t.id), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1467}}
+            , React.createElement('span', { className: "ni-ic", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1468}}, t.icon), React.createElement('span', { className: "ni-lb", __self: this, __source: {fileName: _jsxFileName, lineNumber: 1468}}, t.label)
+          )
+        ))
+      )
 
-      {showAdd &&<EntrySheet onClose={()=>setAdd(false)}  onSave={handleSave} cats={cats}/>}
-      {editE   &&<EntrySheet entry={editE} onClose={()=>setEdit(null)} onSave={handleSave} cats={cats}/>}
-      {showS   &&<SettleSheet entries={entries} period={activePeriod} onClose={()=>{setShowS(false);setSelP(null);}} onSettle={handleSettle}/>}
-      {toast   &&<Toast msg={toast} onDone={()=>setToast(null)}/>}
-    </div>
+      , showAdd &&React.createElement(EntrySheet, { onClose: ()=>setAdd(false),  onSave: handleSave, cats: cats, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1473}})
+      , editE   &&React.createElement(EntrySheet, { entry: editE, onClose: ()=>setEdit(null), onSave: handleSave, cats: cats, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1474}})
+      , showS   &&React.createElement(SettleSheet, { entries: entries, period: activePeriod, onClose: ()=>{setShowS(false);setSelP(null);}, onSettle: handleSettle, __self: this, __source: {fileName: _jsxFileName, lineNumber: 1475}})
+      , toast   &&React.createElement(Toast, { msg: toast, onDone: ()=>setToast(null), __self: this, __source: {fileName: _jsxFileName, lineNumber: 1476}})
+    )
   );
 }
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(React.createElement(App));
 document.getElementById('splash').classList.add('hide');
-setTimeout(()=>document.getElementById('splash').remove(), 500);
+setTimeout(()=>{ const s=document.getElementById('splash'); if(s) s.remove(); }, 500);
+
   </script>
 </body>
 </html>
